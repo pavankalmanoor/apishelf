@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>APIShelf — Status</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>" />
+  <style>
+    .status-table { width: 100%; border-collapse: collapse; font-size: .92rem; margin-top: 1rem; }
+    .status-table th, .status-table td { padding: .55rem .65rem; border-bottom: 1px solid var(--border); text-align: left; }
+    .status-table th { color: var(--fg-muted); font-weight: 500; font-size: .82rem; text-transform: uppercase; letter-spacing: .04em; }
+    .status-pill { display: inline-flex; gap: .35rem; align-items: center; font-weight: 600; padding: .15rem .55rem; border-radius: 999px; font-size: .82rem; }
+    .status-pill.up { background: var(--success-bg); color: var(--success); }
+    .status-pill.degraded { background: var(--warning-bg); color: var(--warning); }
+    .status-pill.down { background: var(--danger-bg); color: var(--danger); }
+    .status-pill.unknown { background: var(--bg-elev); color: var(--fg-muted); }
+    .uptime-bar { display: inline-flex; gap: 2px; height: 14px; }
+    .uptime-bar i { display: inline-block; width: 4px; background: var(--border); border-radius: 1px; }
+    .uptime-bar i.up { background: var(--success); }
+    .uptime-bar i.down { background: var(--danger); }
+    .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin: 1rem 0 2rem; }
+    .summary-grid .card { padding: 1rem; }
+    .summary-grid .num { font-size: 1.6rem; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <header class="site-header"><div class="row">
+    <a href="./" class="brand"><span aria-hidden="true">📚</span><strong>APIShelf</strong></a>
+    <nav class="primary-nav"><a href="./">Directory</a><a href="./status.html" aria-current="page">Status</a><a href="./compare.html">Compare</a><a href="./submit.html">Submit</a></nav>
+  </div></header>
+
+  <main class="row" style="padding-block: 2rem;">
+    <h1>Health & uptime</h1>
+    <p style="color: var(--fg-muted);">Re-tested weekly via GitHub Actions. Each entry was last confirmed responding on its <em>last verified</em> date. Docs-only entries (require signup) are not health-checked.</p>
+
+    <div class="summary-grid" id="summary"></div>
+
+    <table class="status-table">
+      <thead>
+        <tr>
+          <th>API</th>
+          <th>Status</th>
+          <th>Last verified</th>
+          <th>Uptime</th>
+          <th>30-day history</th>
+        </tr>
+      </thead>
+      <tbody id="status-body"></tbody>
+    </table>
+  </main>
+
+  <script type="module">
+    const escapeHtml = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+    const theme = localStorage.getItem('apishelf:theme') || 'dark';
+    document.documentElement.dataset.theme = theme;
+
+    const [data, history] = await Promise.all([
+      fetch('../data/apis.json').then(r => r.json()),
+      fetch('../history/uptime.json').then(r => r.json()).catch(() => ({ runs: [] })),
+    ]);
+
+    const verified = data.apis.filter(a => a._meta?.verified);
+    const counts = { up: 0, degraded: 0, down: 0, unknown: 0 };
+    verified.forEach(a => { counts[a._meta?.health_status || 'unknown']++; });
+
+    document.getElementById('summary').innerHTML = `
+      <div class="card"><div>Verified APIs</div><div class="num">${verified.length}</div></div>
+      <div class="card"><div>Up</div><div class="num" style="color: var(--success);">${counts.up}</div></div>
+      <div class="card"><div>Degraded</div><div class="num" style="color: var(--warning);">${counts.degraded}</div></div>
+      <div class="card"><div>Down</div><div class="num" style="color: var(--danger);">${counts.down}</div></div>
+    `;
+
+    const historyById = new Map();
+    for (const run of (history.runs || [])) {
+      for (const r of (run.results || [])) {
+        if (!historyById.has(r.id)) historyById.set(r.id, []);
+        historyById.get(r.id).push(r.ok);
+      }
+    }
+
+    document.getElementById('status-body').innerHTML = verified.map(a => {
+      const status = a._meta?.health_status || 'unknown';
+      const upbar = (historyById.get(a.id) || []).slice(-30);
+      const bar = Array.from({ length: 30 }, (_, i) => {
+        const v = upbar[i];
+        return `<i class="${v === true ? 'up' : v === false ? 'down' : ''}"></i>`;
+      }).join('');
+      return `<tr>
+        <td><a href="./#${a.id}">${escapeHtml(a.name)}</a></td>
+        <td><span class="status-pill ${status}">${status === 'up' ? '●' : status === 'down' ? '●' : '◐'} ${status}</span></td>
+        <td>${a._meta?.last_verified || '—'}</td>
+        <td>${a._meta?.uptime_percentage != null ? a._meta.uptime_percentage + '%' : '—'}</td>
+        <td><span class="uptime-bar" aria-label="30-day history">${bar}</span></td>
+      </tr>`;
+    }).join('');
+  </script>
+</body>
+</html>

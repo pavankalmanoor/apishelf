@@ -1,0 +1,35 @@
+name: Health check
+
+on:
+  schedule:
+    - cron: '23 7 * * 1'  # weekly, Monday 07:23 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  health-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - name: Run health checks
+        run: npm run health-check || true
+      - name: Regenerate README from updated data
+        run: npm run generate-readme
+      - name: Commit health updates
+        run: |
+          git config user.name "apishelf-bot"
+          git config user.email "bot@apishelf.dev"
+          git add data/apis.json history/uptime.json README.md
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: weekly health check"
+            git push
+          fi

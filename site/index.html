@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>APIShelf — verified free APIs for developers</title>
+  <meta name="description" content="A curated, actually-verified directory of genuinely free APIs. Real curl tests, honest gotchas, working code snippets." />
+  <meta name="theme-color" content="#0d1117" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>" />
+  <link rel="stylesheet" href="styles.css" />
+  <link id="hljs-theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" />
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to results</a>
+
+  <header class="site-header">
+    <div class="row">
+      <a href="./" class="brand" aria-label="APIShelf home">
+        <span aria-hidden="true">📚</span><strong>APIShelf</strong>
+      </a>
+      <nav class="primary-nav" aria-label="Primary">
+        <a href="./status.html">Status</a>
+        <a href="./compare.html">Compare</a>
+        <a href="./submit.html">Submit</a>
+        <a href="https://github.com/pavankalmanoor/apishelf" rel="noopener">GitHub</a>
+      </nav>
+      <div class="header-actions">
+        <div class="key-popover-wrap">
+          <button id="api-key-btn" type="button" class="icon-btn icon-btn-text" aria-label="Set your API keys" aria-expanded="false" aria-controls="api-key-popover" title="Paste keys once, every snippet auto-fills">
+            <span aria-hidden="true">🔑</span><span class="hide-sm">keys</span>
+          </button>
+          <div id="api-key-popover" class="key-popover" hidden role="dialog" aria-label="API key">
+            <label for="api-key-input">Your API key (stored in this browser only)</label>
+            <input id="api-key-input" type="text" placeholder="paste once — auto-fills every snippet" autocomplete="off" />
+            <div class="key-popover-actions">
+              <button id="api-key-clear" type="button" class="link-btn">clear</button>
+              <span class="key-popover-status" id="api-key-status"></span>
+            </div>
+          </div>
+        </div>
+        <button id="theme-toggle" type="button" class="icon-btn" aria-label="Toggle dark mode" title="Toggle theme (t)"><span class="theme-icon">🌙</span></button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="row">
+      <h1>Free APIs that actually work.</h1>
+      <p class="lede">Every no-auth API was real-world tested. Honest gotchas surfaced. Working snippets in 3 languages. <strong id="stat-line">50 APIs across 8 categories.</strong></p>
+      <div class="search-wrap">
+        <input id="search" type="search" placeholder="Search APIs, tags, descriptions… (press / to focus)" aria-label="Search" autocomplete="off" />
+        <kbd>/</kbd>
+      </div>
+      <div class="recommender">
+        <label for="recommend-input">I'm building…</label>
+        <input id="recommend-input" type="text" placeholder="a weather app for runners, a stock dashboard, a meme generator…" />
+        <button id="recommend-btn" type="button">Recommend APIs</button>
+      </div>
+    </div>
+  </section>
+
+  <main id="main" class="row">
+    <aside class="filters" aria-label="Filters">
+      <h2 class="visually-hidden">Filters</h2>
+
+      <div class="filter-group">
+        <h3>Quick filters</h3>
+        <div id="quick-chips" class="chip-row" role="group" aria-label="Quick filters"></div>
+      </div>
+
+      <div class="filter-group">
+        <h3>Category</h3>
+        <div id="cat-chips" class="chip-row" role="group" aria-label="Categories"></div>
+      </div>
+
+      <div class="filter-group">
+        <h3>Verification</h3>
+        <div class="chip-row">
+          <label class="chip"><input type="checkbox" data-filter="verified" /> ✅ Verified only</label>
+          <label class="chip"><input type="checkbox" data-filter="docs-only" /> 🔐 Docs-only</label>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <h3>Constraints</h3>
+        <div class="chip-row">
+          <label class="chip"><input type="checkbox" data-filter="no-auth" /> No auth</label>
+          <label class="chip"><input type="checkbox" data-filter="no-cc" /> No credit card</label>
+          <label class="chip"><input type="checkbox" data-filter="cors" /> CORS supported</label>
+          <label class="chip"><input type="checkbox" data-filter="https" /> HTTPS</label>
+          <label class="chip"><input type="checkbox" data-filter="truly-free" /> Truly free</label>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <button id="compare-go" type="button" class="link-btn" disabled>Compare 0 selected →</button>
+      </div>
+    </aside>
+
+    <section class="results" aria-live="polite">
+      <div class="results-header">
+        <span id="result-count">Loading…</span>
+        <select id="sort-select" aria-label="Sort">
+          <option value="popularity">Sort: most popular</option>
+          <option value="name">Sort: A → Z</option>
+          <option value="recent">Sort: recently verified</option>
+        </select>
+      </div>
+      <div id="results" class="card-grid" role="list"></div>
+      <div id="empty-state" class="empty-state" hidden>
+        <p>No APIs match these filters.</p>
+        <button class="link-btn" id="clear-all">Clear all filters</button>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="detail-modal" class="modal" aria-label="API detail">
+    <div class="modal-content"></div>
+    <button id="modal-close" type="button" class="modal-close" aria-label="Close">×</button>
+  </dialog>
+
+  <footer class="site-footer">
+    <div class="row">
+      <div class="footer-grid">
+        <div class="footer-brand">📚 <strong>APIShelf</strong> · <span class="footer-tag">open source, MIT</span></div>
+        <a href="https://github.com/pavankalmanoor/apishelf" rel="noopener" class="footer-link">↗ GitHub</a>
+        <a href="./status.html" class="footer-link">Health</a>
+        <a href="./feed.json" class="footer-link">JSON feed</a>
+        <span class="footer-meta" id="footer-last-check">Last health check: —</span>
+        <span class="footer-meta" id="footer-contributors">— contributors</span>
+        <span class="footer-meta">Built by <a href="https://github.com/pavankalmanoor" rel="noopener">pavankalmanoor</a></span>
+      </div>
+      <p class="hint">Keyboard: <kbd>/</kbd> search · <kbd>j</kbd>/<kbd>k</kbd> nav · <kbd>Enter</kbd> open · <kbd>t</kbd> theme · <kbd>Esc</kbd> close</p>
+    </div>
+  </footer>
+
+  <script src="app.js" type="module"></script>
+  <script>
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(() => {});
+  </script>
+</body>
+</html>

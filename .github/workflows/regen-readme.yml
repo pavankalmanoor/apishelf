@@ -1,0 +1,36 @@
+name: Regen README
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/apis.json'
+      - 'data/categories.json'
+      - 'scripts/generate-readme.js'
+
+permissions:
+  contents: write
+
+jobs:
+  regen:
+    runs-on: ubuntu-latest
+    if: github.actor != 'apishelf-bot'  # avoid workflow loops with health-check job
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run generate-readme
+      - name: Commit if README changed
+        run: |
+          git config user.name "apishelf-bot"
+          git config user.email "bot@apishelf.dev"
+          git add README.md
+          if git diff --cached --quiet; then
+            echo "README is up to date"
+          else
+            git commit -m "docs: regenerate README"
+            git push
+          fi

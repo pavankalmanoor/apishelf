@@ -1,0 +1,3059 @@
+{
+  "apis": [
+    {
+      "id": "open-meteo",
+      "name": "Open-Meteo",
+      "description": "Free, open-source weather API for non-commercial use. No API key, no signup. Provides current weather, forecasts, historical data, and air quality.",
+      "category": "weather",
+      "subcategory": "forecasts",
+      "website": "https://open-meteo.com",
+      "docs_url": "https://open-meteo.com/en/docs",
+      "signup_url": null,
+      "base_url": "https://api.open-meteo.com/v1",
+      "example_endpoint": "/forecast?latitude=52.52&longitude=13.41&current_weather=true",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": 10000,
+        "per_month": 300000,
+        "notes": "Non-commercial use only on the free tier"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current_weather=true'",
+        "javascript": "const r = await fetch('https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current_weather=true');\nconst data = await r.json();\nconsole.log(data.current_weather);",
+        "python": "import requests\nr = requests.get('https://api.open-meteo.com/v1/forecast', params={'latitude': 52.52, 'longitude': 13.41, 'current_weather': True})\nprint(r.json()['current_weather'])"
+      },
+      "example_response": "{\"latitude\":52.52,\"longitude\":13.42,\"current_weather\":{\"temperature\":15.6,\"windspeed\":12.4,\"winddirection\":237,\"weathercode\":3}}",
+      "tags": [
+        "weather",
+        "forecast",
+        "climate",
+        "free",
+        "no-auth"
+      ],
+      "popularity_score": 90,
+      "alternatives": [
+        "wttr-in",
+        "nws",
+        "7timer"
+      ],
+      "gotchas": [
+        {
+          "severity": "warning",
+          "text": "Free tier is non-commercial use only"
+        },
+        {
+          "severity": "info",
+          "text": "Has a separate marine, air-quality, and historical archive at different subdomains"
+        }
+      ],
+      "health_check": {
+        "url": "https://api.open-meteo.com/v1/forecast?latitude=0&longitude=0&current_weather=true",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "wttr-in",
+      "name": "wttr.in",
+      "description": "Console-friendly weather service that also returns JSON. Perfect for terminal apps and quick scripts.",
+      "category": "weather",
+      "subcategory": "current-conditions",
+      "website": "https://wttr.in",
+      "docs_url": "https://github.com/chubin/wttr.in",
+      "signup_url": null,
+      "base_url": "https://wttr.in",
+      "example_endpoint": "/London?format=j1",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": null,
+        "per_month": null,
+        "notes": "Soft fair-use; back off on errors"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": false,
+      "code_examples": {
+        "curl": "curl 'https://wttr.in/London?format=j1'",
+        "javascript": "// CORS not supported; fetch from a server or proxy\n// On a server:\nconst r = await fetch('https://wttr.in/London?format=j1');\nconsole.log(await r.json());",
+        "python": "import requests\nprint(requests.get('https://wttr.in/London?format=j1').json()['current_condition'][0]['temp_C'])"
+      },
+      "example_response": "{\"current_condition\":[{\"FeelsLikeC\":\"21\",\"FeelsLikeF\":\"70\",\"humidity\":\"18\",\"temp_C\":\"22\"}]}",
+      "tags": [
+        "weather",
+        "terminal",
+        "ascii",
+        "no-auth"
+      ],
+      "popularity_score": 75,
+      "alternatives": [
+        "open-meteo"
+      ],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "No CORS headers — cannot be called directly from browser JS"
+        },
+        {
+          "severity": "info",
+          "text": "Slow on first hit while it caches"
+        }
+      ],
+      "health_check": {
+        "url": "https://wttr.in/London?format=j1",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": false,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "nws",
+      "name": "US National Weather Service",
+      "description": "Official US government weather forecasts, alerts, and observations. Free, no key, no rate limits beyond fair-use.",
+      "category": "weather",
+      "subcategory": "government",
+      "website": "https://www.weather.gov",
+      "docs_url": "https://www.weather.gov/documentation/services-web-api",
+      "signup_url": null,
+      "base_url": "https://api.weather.gov",
+      "example_endpoint": "/points/39.7456,-97.0892",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": null,
+        "per_month": null,
+        "notes": "Identify yourself with a User-Agent containing contact info"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": false,
+      "code_examples": {
+        "curl": "curl -H 'User-Agent: MyApp (contact@example.com)' https://api.weather.gov/points/39.7456,-97.0892",
+        "javascript": "const r = await fetch('https://api.weather.gov/points/39.7456,-97.0892', {\n  headers: { 'User-Agent': 'MyApp (contact@example.com)' }\n});\nconsole.log(await r.json());",
+        "python": "import requests\nr = requests.get('https://api.weather.gov/points/39.7456,-97.0892', headers={'User-Agent': 'MyApp (contact@example.com)'})\nprint(r.json())"
+      },
+      "example_response": "{\"properties\":{\"forecast\":\"https://api.weather.gov/gridpoints/TOP/31,80/forecast\",\"county\":\"https://api.weather.gov/zones/county/KSC201\"}}",
+      "tags": [
+        "weather",
+        "us",
+        "government",
+        "no-auth"
+      ],
+      "popularity_score": 80,
+      "alternatives": [
+        "open-meteo",
+        "wttr-in"
+      ],
+      "gotchas": [
+        {
+          "severity": "warning",
+          "text": "US territory only"
+        },
+        {
+          "severity": "info",
+          "text": "Requires a User-Agent header identifying your app"
+        },
+        {
+          "severity": "info",
+          "text": "No CORS — proxy required for browser apps"
+        }
+      ],
+      "health_check": {
+        "url": "https://api.weather.gov/points/39.7456,-97.0892",
+        "method": "GET",
+        "expected_status": 200,
+        "headers": {
+          "User-Agent": "APIShelf/1.0 (https://github.com/pavankalmanoor/apishelf)"
+        },
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": false,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "7timer",
+      "name": "7Timer!",
+      "description": "Numerical weather forecasts derived from open meteorological models. Astronomy-friendly outputs (cloud cover, seeing, transparency).",
+      "category": "weather",
+      "subcategory": "astronomy",
+      "website": "https://www.7timer.info",
+      "docs_url": "https://www.7timer.info/doc.php?lang=en",
+      "signup_url": null,
+      "base_url": "https://www.7timer.info/bin",
+      "example_endpoint": "/api.pl?lon=113.17&lat=23.09&product=astro&output=json",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": null,
+        "per_month": null,
+        "notes": "No documented limits"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": false,
+      "code_examples": {
+        "curl": "curl 'https://www.7timer.info/bin/api.pl?lon=113.17&lat=23.09&product=astro&output=json'",
+        "javascript": "// CORS not supported — call from server\nconst r = await fetch('https://www.7timer.info/bin/api.pl?lon=113.17&lat=23.09&product=astro&output=json');",
+        "python": "import requests\nprint(requests.get('https://www.7timer.info/bin/api.pl', params={'lon':113.17,'lat':23.09,'product':'astro','output':'json'}).json())"
+      },
+      "example_response": "{\"product\":\"astro\",\"init\":\"2026042512\",\"dataseries\":[{\"timepoint\":3,\"cloudcover\":9,\"seeing\":6,\"transparency\":3}]}",
+      "tags": [
+        "weather",
+        "astronomy",
+        "stargazing",
+        "no-auth"
+      ],
+      "popularity_score": 55,
+      "alternatives": [
+        "open-meteo"
+      ],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "No CORS"
+        },
+        {
+          "severity": "info",
+          "text": "Old-style CGI URL structure"
+        },
+        {
+          "severity": "info",
+          "text": "Forecast resolution is coarse compared to commercial APIs"
+        }
+      ],
+      "health_check": {
+        "url": "https://www.7timer.info/bin/api.pl?lon=0&lat=0&product=astro&output=json",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": false,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "openweathermap",
+      "name": "OpenWeatherMap",
+      "description": "Popular weather API with current conditions, forecasts, historical data, and air pollution. Generous free tier after signup.",
+      "category": "weather",
+      "subcategory": "forecasts",
+      "website": "https://openweathermap.org",
+      "docs_url": "https://openweathermap.org/api",
+      "signup_url": "https://home.openweathermap.org/users/sign_up",
+      "base_url": "https://api.openweathermap.org/data/2.5",
+      "example_endpoint": "/weather?q=London&appid={{API_KEY}}",
+      "auth_type": "api_key",
+      "pricing_tier": "free_with_signup",
+      "rate_limits": {
+        "per_minute": 60,
+        "per_day": 1000,
+        "per_month": null,
+        "notes": "1k calls/day on free tier"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://api.openweathermap.org/data/2.5/weather?q=London&appid={{API_KEY}}'",
+        "javascript": "const r = await fetch('https://api.openweathermap.org/data/2.5/weather?q=London&appid={{API_KEY}}');\nconsole.log(await r.json());",
+        "python": "import requests\nr = requests.get('https://api.openweathermap.org/data/2.5/weather', params={'q':'London','appid':'{{API_KEY}}'})\nprint(r.json())"
+      },
+      "example_response": "{\"weather\":[{\"main\":\"Clouds\",\"description\":\"broken clouds\"}],\"main\":{\"temp\":284.2}}",
+      "tags": [
+        "weather",
+        "forecast"
+      ],
+      "popularity_score": 95,
+      "alternatives": [
+        "open-meteo",
+        "visual-crossing"
+      ],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "New API keys can take up to 2 hours to activate"
+        },
+        {
+          "severity": "info",
+          "text": "Default temperature unit is Kelvin (use units=metric or imperial)"
+        },
+        {
+          "severity": "warning",
+          "text": "One Call API requires CC even for free tier"
+        }
+      ],
+      "health_check": {
+        "url": "https://api.openweathermap.org/data/2.5/weather?q=London",
+        "method": "GET",
+        "expected_status": 401,
+        "requires_auth": true
+      },
+      "_meta": {
+        "verified": false,
+        "last_verified": null,
+        "health_status": "unknown",
+        "uptime_percentage": null,
+        "cors_verified": null,
+        "verified_by": null
+      }
+    },
+    {
+      "id": "visual-crossing",
+      "name": "Visual Crossing Weather",
+      "description": "Hourly, daily, and historical weather data with a free tier. No credit card required for the free 1,000 records/day.",
+      "category": "weather",
+      "subcategory": "historical",
+      "website": "https://www.visualcrossing.com",
+      "docs_url": "https://www.visualcrossing.com/resources/documentation/weather-api/timeline-weather-api/",
+      "signup_url": "https://www.visualcrossing.com/sign-up",
+      "base_url": "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline",
+      "example_endpoint": "/London?key={{API_KEY}}",
+      "auth_type": "api_key",
+      "pricing_tier": "free_with_signup",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": 1000,
+        "per_month": null,
+        "notes": "1,000 records per day free, no CC"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/London?key={{API_KEY}}'",
+        "javascript": "const r = await fetch('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/London?key={{API_KEY}}');\nconsole.log(await r.json());",
+        "python": "import requests\nr = requests.get('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/London', params={'key':'{{API_KEY}}'})\nprint(r.json())"
+      },
+      "example_response": "{\"queryCost\":1,\"latitude\":51.5,\"longitude\":-0.13,\"resolvedAddress\":\"London, England, United Kingdom\"}",
+      "tags": [
+        "weather",
+        "historical",
+        "forecast"
+      ],
+      "popularity_score": 70,
+      "alternatives": [
+        "open-meteo",
+        "openweathermap"
+      ],
+      "gotchas": [
+        {
+          "severity": "warning",
+          "text": "Free tier is for non-commercial use only"
+        },
+        {
+          "severity": "info",
+          "text": "Each location-day costs 1 record"
+        }
+      ],
+      "health_check": {
+        "url": "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/London",
+        "method": "GET",
+        "expected_status": 401,
+        "requires_auth": true
+      },
+      "_meta": {
+        "verified": false,
+        "last_verified": null,
+        "health_status": "unknown",
+        "uptime_percentage": null,
+        "cors_verified": null,
+        "verified_by": null
+      }
+    },
+    {
+      "id": "nominatim",
+      "name": "Nominatim (OpenStreetMap)",
+      "description": "Geocoding and reverse-geocoding from OpenStreetMap data. Free public instance with strict fair-use limits.",
+      "category": "geo",
+      "subcategory": "geocoding",
+      "website": "https://nominatim.openstreetmap.org",
+      "docs_url": "https://nominatim.org/release-docs/latest/api/Overview/",
+      "signup_url": null,
+      "base_url": "https://nominatim.openstreetmap.org",
+      "example_endpoint": "/search?q=Berlin&format=json&limit=1",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": 60,
+        "per_day": null,
+        "per_month": null,
+        "notes": "Max 1 request/sec, identify with User-Agent"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl -H 'User-Agent: MyApp (contact@example.com)' 'https://nominatim.openstreetmap.org/search?q=Berlin&format=json&limit=1'",
+        "javascript": "const r = await fetch('https://nominatim.openstreetmap.org/search?q=Berlin&format=json&limit=1', {\n  headers: { 'User-Agent': 'MyApp (contact@example.com)' }\n});\nconsole.log(await r.json());",
+        "python": "import requests\nr = requests.get('https://nominatim.openstreetmap.org/search', params={'q':'Berlin','format':'json','limit':1}, headers={'User-Agent':'MyApp (contact@example.com)'})\nprint(r.json())"
+      },
+      "example_response": "[{\"place_id\":133769868,\"lat\":\"52.5173885\",\"lon\":\"13.3951309\",\"display_name\":\"Berlin, Germany\"}]",
+      "tags": [
+        "geocoding",
+        "maps",
+        "openstreetmap",
+        "no-auth"
+      ],
+      "popularity_score": 85,
+      "alternatives": [
+        "opencage",
+        "mapbox"
+      ],
+      "gotchas": [
+        {
+          "severity": "warning",
+          "text": "Max 1 request per second — abuse will get you IP-banned"
+        },
+        {
+          "severity": "info",
+          "text": "Requires a User-Agent header identifying your app"
+        },
+        {
+          "severity": "info",
+          "text": "Self-host for higher volume"
+        }
+      ],
+      "health_check": {
+        "url": "https://nominatim.openstreetmap.org/search?q=Berlin&format=json&limit=1",
+        "method": "GET",
+        "expected_status": 200,
+        "headers": {
+          "User-Agent": "APIShelf/1.0 (https://github.com/pavankalmanoor/apishelf)"
+        },
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "ip-api",
+      "name": "ip-api.com",
+      "description": "IP geolocation including country, region, city, timezone, ISP, and ASN. Free tier without signup.",
+      "category": "geo",
+      "subcategory": "ip-lookup",
+      "website": "https://ip-api.com",
+      "docs_url": "https://ip-api.com/docs",
+      "signup_url": null,
+      "base_url": "http://ip-api.com",
+      "example_endpoint": "/json/8.8.8.8",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": 45,
+        "per_day": null,
+        "per_month": null,
+        "notes": "45 requests per minute per source IP"
+      },
+      "requires_credit_card": false,
+      "https": false,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'http://ip-api.com/json/8.8.8.8'",
+        "javascript": "const r = await fetch('http://ip-api.com/json/8.8.8.8');\nconsole.log(await r.json());",
+        "python": "import requests\nprint(requests.get('http://ip-api.com/json/8.8.8.8').json())"
+      },
+      "example_response": "{\"status\":\"success\",\"country\":\"United States\",\"city\":\"Ashburn\",\"isp\":\"Google LLC\"}",
+      "tags": [
+        "ip",
+        "geolocation",
+        "no-auth"
+      ],
+      "popularity_score": 80,
+      "alternatives": [
+        "ipapi-co",
+        "ipify"
+      ],
+      "gotchas": [
+        {
+          "severity": "warning",
+          "text": "Free tier is HTTP only — will be blocked from HTTPS pages by mixed-content policy"
+        },
+        {
+          "severity": "info",
+          "text": "HTTPS access requires a paid Pro plan"
+        }
+      ],
+      "health_check": {
+        "url": "http://ip-api.com/json/8.8.8.8",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "rest-countries",
+      "name": "REST Countries",
+      "description": "Comprehensive country metadata: names, currencies, capitals, languages, flags, borders, and more.",
+      "category": "geo",
+      "subcategory": "reference",
+      "website": "https://restcountries.com",
+      "docs_url": "https://restcountries.com",
+      "signup_url": null,
+      "base_url": "https://restcountries.com/v3.1",
+      "example_endpoint": "/name/germany?fields=name,capital,currencies",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": null,
+        "per_month": null,
+        "notes": "No documented limits; fair-use"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://restcountries.com/v3.1/name/germany?fields=name,capital'",
+        "javascript": "const r = await fetch('https://restcountries.com/v3.1/name/germany?fields=name,capital');\nconsole.log(await r.json());",
+        "python": "import requests\nprint(requests.get('https://restcountries.com/v3.1/name/germany', params={'fields':'name,capital'}).json())"
+      },
+      "example_response": "[{\"name\":{\"common\":\"Germany\",\"official\":\"Federal Republic of Germany\"},\"capital\":[\"Berlin\"]}]",
+      "tags": [
+        "countries",
+        "geography",
+        "reference",
+        "no-auth"
+      ],
+      "popularity_score": 88,
+      "alternatives": [],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "v2 was deprecated — make sure your URL uses /v3.1"
+        },
+        {
+          "severity": "info",
+          "text": "Use ?fields= to limit response size for performance"
+        }
+      ],
+      "health_check": {
+        "url": "https://restcountries.com/v3.1/name/germany?fields=name",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "ipapi-co",
+      "name": "ipapi.co",
+      "description": "IP geolocation with country, city, ASN, currency, and language hints. Free tier with daily quota.",
+      "category": "geo",
+      "subcategory": "ip-lookup",
+      "website": "https://ipapi.co",
+      "docs_url": "https://ipapi.co/api/",
+      "signup_url": "https://ipapi.co/signup/",
+      "base_url": "https://ipapi.co",
+      "example_endpoint": "/json/",
+      "auth_type": "none",
+      "pricing_tier": "free_tier_limited",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": 1000,
+        "per_month": 30000,
+        "notes": "1k req/day on the free tier"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://ipapi.co/json/'",
+        "javascript": "const r = await fetch('https://ipapi.co/json/');\nconsole.log(await r.json());",
+        "python": "import requests\nprint(requests.get('https://ipapi.co/json/').json())"
+      },
+      "example_response": "{\"ip\":\"24.62.152.23\",\"city\":\"Boston\",\"region\":\"Massachusetts\",\"country\":\"US\"}",
+      "tags": [
+        "ip",
+        "geolocation"
+      ],
+      "popularity_score": 70,
+      "alternatives": [
+        "ip-api",
+        "ipify"
+      ],
+      "gotchas": [
+        {
+          "severity": "warning",
+          "text": "Aggressive rate-limit on the free tier — 1,000/day is shared per source IP"
+        },
+        {
+          "severity": "info",
+          "text": "Returns 429 with a paid-plan upsell when you hit the limit"
+        }
+      ],
+      "health_check": {
+        "url": "https://ipapi.co/json/",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": false,
+        "last_verified": "2026-04-25",
+        "health_status": "degraded",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl-rate-limited"
+      }
+    },
+    {
+      "id": "opencage",
+      "name": "OpenCage Geocoding",
+      "description": "Forward and reverse geocoding aggregating multiple open data sources. Generous free tier with no credit card.",
+      "category": "geo",
+      "subcategory": "geocoding",
+      "website": "https://opencagedata.com",
+      "docs_url": "https://opencagedata.com/api",
+      "signup_url": "https://opencagedata.com/users/sign_up",
+      "base_url": "https://api.opencagedata.com/geocode/v1",
+      "example_endpoint": "/json?q=Berlin&key={{API_KEY}}",
+      "auth_type": "api_key",
+      "pricing_tier": "free_with_signup",
+      "rate_limits": {
+        "per_minute": 60,
+        "per_day": 2500,
+        "per_month": null,
+        "notes": "2,500 req/day free, no CC required"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://api.opencagedata.com/geocode/v1/json?q=Berlin&key={{API_KEY}}'",
+        "javascript": "const r = await fetch('https://api.opencagedata.com/geocode/v1/json?q=Berlin&key={{API_KEY}}');\nconsole.log(await r.json());",
+        "python": "import requests\nr = requests.get('https://api.opencagedata.com/geocode/v1/json', params={'q':'Berlin','key':'{{API_KEY}}'})\nprint(r.json())"
+      },
+      "example_response": "{\"results\":[{\"formatted\":\"Berlin, Germany\",\"geometry\":{\"lat\":52.5170,\"lng\":13.3889}}]}",
+      "tags": [
+        "geocoding",
+        "maps"
+      ],
+      "popularity_score": 75,
+      "alternatives": [
+        "nominatim",
+        "mapbox"
+      ],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "Daily quota resets at UTC midnight, not your local timezone"
+        }
+      ],
+      "health_check": {
+        "url": "https://api.opencagedata.com/geocode/v1/json?q=Berlin",
+        "method": "GET",
+        "expected_status": 401,
+        "requires_auth": true
+      },
+      "_meta": {
+        "verified": false,
+        "last_verified": null,
+        "health_status": "unknown",
+        "uptime_percentage": null,
+        "cors_verified": null,
+        "verified_by": null
+      }
+    },
+    {
+      "id": "mapbox",
+      "name": "Mapbox",
+      "description": "Maps, geocoding, navigation, and tile serving. Generous free tier with usage-based billing after.",
+      "category": "geo",
+      "subcategory": "maps",
+      "website": "https://www.mapbox.com",
+      "docs_url": "https://docs.mapbox.com/api/",
+      "signup_url": "https://account.mapbox.com/auth/signup/",
+      "base_url": "https://api.mapbox.com",
+      "example_endpoint": "/geocoding/v5/mapbox.places/Berlin.json?access_token={{API_KEY}}",
+      "auth_type": "api_key",
+      "pricing_tier": "freemium",
+      "rate_limits": {
+        "per_minute": 600,
+        "per_day": null,
+        "per_month": 100000,
+        "notes": "100k tile loads/month free"
+      },
+      "requires_credit_card": true,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://api.mapbox.com/geocoding/v5/mapbox.places/Berlin.json?access_token={{API_KEY}}'",
+        "javascript": "const r = await fetch('https://api.mapbox.com/geocoding/v5/mapbox.places/Berlin.json?access_token={{API_KEY}}');\nconsole.log(await r.json());",
+        "python": "import requests\nr = requests.get('https://api.mapbox.com/geocoding/v5/mapbox.places/Berlin.json', params={'access_token':'{{API_KEY}}'})\nprint(r.json())"
+      },
+      "example_response": "{\"features\":[{\"place_name\":\"Berlin, Germany\",\"center\":[13.39,52.52]}]}",
+      "tags": [
+        "maps",
+        "geocoding",
+        "tiles"
+      ],
+      "popularity_score": 92,
+      "alternatives": [
+        "nominatim",
+        "opencage"
+      ],
+      "gotchas": [
+        {
+          "severity": "warning",
+          "text": "Requires credit card for any meaningful use, even if you stay in the free tier"
+        },
+        {
+          "severity": "info",
+          "text": "Map tiles count separately from geocoding requests"
+        }
+      ],
+      "health_check": {
+        "url": "https://api.mapbox.com/geocoding/v5/mapbox.places/Berlin.json",
+        "method": "GET",
+        "expected_status": 401,
+        "requires_auth": true
+      },
+      "_meta": {
+        "verified": false,
+        "last_verified": null,
+        "health_status": "unknown",
+        "uptime_percentage": null,
+        "cors_verified": null,
+        "verified_by": null
+      }
+    },
+    {
+      "id": "coingecko",
+      "name": "CoinGecko",
+      "description": "Cryptocurrency prices, market cap, exchange data, and historical charts. Public tier without an API key.",
+      "category": "finance",
+      "subcategory": "crypto",
+      "website": "https://www.coingecko.com",
+      "docs_url": "https://docs.coingecko.com/reference/introduction",
+      "signup_url": null,
+      "base_url": "https://api.coingecko.com/api/v3",
+      "example_endpoint": "/simple/price?ids=bitcoin&vs_currencies=usd",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": 30,
+        "per_day": null,
+        "per_month": 10000,
+        "notes": "Public API: ~30 calls/min, ~10k/month"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd'",
+        "javascript": "const r = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');\nconsole.log(await r.json());",
+        "python": "import requests\nprint(requests.get('https://api.coingecko.com/api/v3/simple/price', params={'ids':'bitcoin','vs_currencies':'usd'}).json())"
+      },
+      "example_response": "{\"bitcoin\":{\"usd\":77365}}",
+      "tags": [
+        "crypto",
+        "bitcoin",
+        "market-data",
+        "no-auth"
+      ],
+      "popularity_score": 95,
+      "alternatives": [
+        "coinpaprika"
+      ],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "Public tier rate limits are not officially documented and shift over time"
+        },
+        {
+          "severity": "info",
+          "text": "Higher quota plans (Demo/Pro) require signup and use a different host"
+        }
+      ],
+      "health_check": {
+        "url": "https://api.coingecko.com/api/v3/ping",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "coinpaprika",
+      "name": "CoinPaprika",
+      "description": "Cryptocurrency market data API with no signup required. Covers prices, exchanges, OHLC, events, and more.",
+      "category": "finance",
+      "subcategory": "crypto",
+      "website": "https://coinpaprika.com",
+      "docs_url": "https://api.coinpaprika.com",
+      "signup_url": null,
+      "base_url": "https://api.coinpaprika.com/v1",
+      "example_endpoint": "/tickers/btc-bitcoin",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": null,
+        "per_month": 25000,
+        "notes": "Free tier: 25k req/month"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://api.coinpaprika.com/v1/tickers/btc-bitcoin'",
+        "javascript": "const r = await fetch('https://api.coinpaprika.com/v1/tickers/btc-bitcoin');\nconsole.log(await r.json());",
+        "python": "import requests\nprint(requests.get('https://api.coinpaprika.com/v1/tickers/btc-bitcoin').json())"
+      },
+      "example_response": "{\"id\":\"btc-bitcoin\",\"name\":\"Bitcoin\",\"symbol\":\"BTC\",\"rank\":1}",
+      "tags": [
+        "crypto",
+        "bitcoin",
+        "market-data",
+        "no-auth"
+      ],
+      "popularity_score": 78,
+      "alternatives": [
+        "coingecko"
+      ],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "Coin IDs use a slug format (btc-bitcoin) — not just the symbol"
+        }
+      ],
+      "health_check": {
+        "url": "https://api.coinpaprika.com/v1/global",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "exchangerate-api-open",
+      "name": "ExchangeRate-API (Open)",
+      "description": "Free, open foreign-exchange rates updated daily. No signup required for the open endpoint.",
+      "category": "finance",
+      "subcategory": "forex",
+      "website": "https://www.exchangerate-api.com",
+      "docs_url": "https://www.exchangerate-api.com/docs/free",
+      "signup_url": null,
+      "base_url": "https://open.er-api.com/v6",
+      "example_endpoint": "/latest/USD",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": null,
+        "per_month": null,
+        "notes": "Once-per-day refresh; soft request fair-use"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://open.er-api.com/v6/latest/USD'",
+        "javascript": "const r = await fetch('https://open.er-api.com/v6/latest/USD');\nconsole.log(await r.json());",
+        "python": "import requests\nprint(requests.get('https://open.er-api.com/v6/latest/USD').json())"
+      },
+      "example_response": "{\"result\":\"success\",\"base_code\":\"USD\",\"rates\":{\"EUR\":0.92,\"GBP\":0.79}}",
+      "tags": [
+        "forex",
+        "exchange-rates",
+        "currency",
+        "no-auth"
+      ],
+      "popularity_score": 80,
+      "alternatives": [
+        "frankfurter"
+      ],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "Rates update once per day at UTC 00:00"
+        },
+        {
+          "severity": "info",
+          "text": "The non-open endpoint requires signup and a separate key"
+        }
+      ],
+      "health_check": {
+        "url": "https://open.er-api.com/v6/latest/USD",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "frankfurter",
+      "name": "Frankfurter",
+      "description": "Free forex rates from the European Central Bank. Open-source, no signup, daily updates.",
+      "category": "finance",
+      "subcategory": "forex",
+      "website": "https://www.frankfurter.dev",
+      "docs_url": "https://www.frankfurter.dev/",
+      "signup_url": null,
+      "base_url": "https://api.frankfurter.dev/v1",
+      "example_endpoint": "/latest?base=USD&symbols=EUR",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": null,
+        "per_month": null,
+        "notes": "Generous fair-use"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://api.frankfurter.dev/v1/latest?base=USD&symbols=EUR'",
+        "javascript": "const r = await fetch('https://api.frankfurter.dev/v1/latest?base=USD&symbols=EUR');\nconsole.log(await r.json());",
+        "python": "import requests\nprint(requests.get('https://api.frankfurter.dev/v1/latest', params={'base':'USD','symbols':'EUR'}).json())"
+      },
+      "example_response": "{\"amount\":1.0,\"base\":\"USD\",\"date\":\"2026-04-24\",\"rates\":{\"EUR\":0.85}}",
+      "tags": [
+        "forex",
+        "ecb",
+        "no-auth"
+      ],
+      "popularity_score": 72,
+      "alternatives": [
+        "exchangerate-api-open"
+      ],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "The old api.frankfurter.app domain redirects — use api.frankfurter.dev/v1"
+        },
+        {
+          "severity": "info",
+          "text": "Only ECB-tracked currencies are supported (~30)"
+        }
+      ],
+      "health_check": {
+        "url": "https://api.frankfurter.dev/v1/latest",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "alpha-vantage",
+      "name": "Alpha Vantage",
+      "description": "Stock, forex, and crypto market data. Free API key after signup.",
+      "category": "finance",
+      "subcategory": "stocks",
+      "website": "https://www.alphavantage.co",
+      "docs_url": "https://www.alphavantage.co/documentation/",
+      "signup_url": "https://www.alphavantage.co/support/#api-key",
+      "base_url": "https://www.alphavantage.co/query",
+      "example_endpoint": "?function=GLOBAL_QUOTE&symbol=IBM&apikey={{API_KEY}}",
+      "auth_type": "api_key",
+      "pricing_tier": "free_tier_limited",
+      "rate_limits": {
+        "per_minute": 5,
+        "per_day": 25,
+        "per_month": null,
+        "notes": "5 calls/min and 25 calls/day on the free tier"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=IBM&apikey={{API_KEY}}'",
+        "javascript": "const r = await fetch('https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=IBM&apikey={{API_KEY}}');\nconsole.log(await r.json());",
+        "python": "import requests\nr = requests.get('https://www.alphavantage.co/query', params={'function':'GLOBAL_QUOTE','symbol':'IBM','apikey':'{{API_KEY}}'})\nprint(r.json())"
+      },
+      "example_response": "{\"Global Quote\":{\"01. symbol\":\"IBM\",\"05. price\":\"175.42\"}}",
+      "tags": [
+        "stocks",
+        "forex",
+        "market-data"
+      ],
+      "popularity_score": 70,
+      "alternatives": [
+        "twelve-data"
+      ],
+      "gotchas": [
+        {
+          "severity": "warning",
+          "text": "Free tier is only 25 calls per day — extremely tight"
+        },
+        {
+          "severity": "warning",
+          "text": "Returns 200 OK even when rate-limited, with an error message in the JSON body"
+        }
+      ],
+      "health_check": {
+        "url": "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=IBM",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": true
+      },
+      "_meta": {
+        "verified": false,
+        "last_verified": null,
+        "health_status": "unknown",
+        "uptime_percentage": null,
+        "cors_verified": null,
+        "verified_by": null
+      }
+    },
+    {
+      "id": "twelve-data",
+      "name": "Twelve Data",
+      "description": "Real-time and historical market data: stocks, forex, crypto, indices, ETFs. Free tier 800 req/day.",
+      "category": "finance",
+      "subcategory": "stocks",
+      "website": "https://twelvedata.com",
+      "docs_url": "https://twelvedata.com/docs",
+      "signup_url": "https://twelvedata.com/register",
+      "base_url": "https://api.twelvedata.com",
+      "example_endpoint": "/quote?symbol=AAPL&apikey={{API_KEY}}",
+      "auth_type": "api_key",
+      "pricing_tier": "free_with_signup",
+      "rate_limits": {
+        "per_minute": 8,
+        "per_day": 800,
+        "per_month": null,
+        "notes": "800 req/day, 8 req/min on free tier"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://api.twelvedata.com/quote?symbol=AAPL&apikey={{API_KEY}}'",
+        "javascript": "const r = await fetch('https://api.twelvedata.com/quote?symbol=AAPL&apikey={{API_KEY}}');\nconsole.log(await r.json());",
+        "python": "import requests\nr = requests.get('https://api.twelvedata.com/quote', params={'symbol':'AAPL','apikey':'{{API_KEY}}'})\nprint(r.json())"
+      },
+      "example_response": "{\"symbol\":\"AAPL\",\"name\":\"Apple Inc\",\"close\":\"175.50\",\"currency\":\"USD\"}",
+      "tags": [
+        "stocks",
+        "forex",
+        "crypto",
+        "etf"
+      ],
+      "popularity_score": 75,
+      "alternatives": [
+        "alpha-vantage"
+      ],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "Real-time data limited on free tier — most quotes are 15-min delayed"
+        }
+      ],
+      "health_check": {
+        "url": "https://api.twelvedata.com/quote?symbol=AAPL",
+        "method": "GET",
+        "expected_status": 401,
+        "requires_auth": true
+      },
+      "_meta": {
+        "verified": false,
+        "last_verified": null,
+        "health_status": "unknown",
+        "uptime_percentage": null,
+        "cors_verified": null,
+        "verified_by": null
+      }
+    },
+    {
+      "id": "usgs-earthquake",
+      "name": "USGS Earthquake Catalog",
+      "description": "Real-time and historical earthquake data from the US Geological Survey. GeoJSON output.",
+      "category": "public-data",
+      "subcategory": "science",
+      "website": "https://earthquake.usgs.gov",
+      "docs_url": "https://earthquake.usgs.gov/fdsnws/event/1/",
+      "signup_url": null,
+      "base_url": "https://earthquake.usgs.gov/fdsnws/event/1",
+      "example_endpoint": "/query?format=geojson&starttime=2026-04-20&endtime=2026-04-21&minmagnitude=4",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": null,
+        "per_month": null,
+        "notes": "Fair-use; no documented limits"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2026-04-20&endtime=2026-04-21&minmagnitude=4'",
+        "javascript": "const r = await fetch('https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2026-04-20&endtime=2026-04-21&minmagnitude=4');\nconsole.log(await r.json());",
+        "python": "import requests\nr = requests.get('https://earthquake.usgs.gov/fdsnws/event/1/query', params={'format':'geojson','starttime':'2026-04-20','endtime':'2026-04-21','minmagnitude':4})\nprint(r.json())"
+      },
+      "example_response": "{\"type\":\"FeatureCollection\",\"metadata\":{\"count\":42},\"features\":[]}",
+      "tags": [
+        "earthquake",
+        "science",
+        "geojson",
+        "no-auth"
+      ],
+      "popularity_score": 70,
+      "alternatives": [],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "Maximum response size is 20,000 events per query — paginate with starttime/endtime"
+        }
+      ],
+      "health_check": {
+        "url": "https://earthquake.usgs.gov/fdsnws/event/1/count?format=geojson&starttime=2026-04-20&endtime=2026-04-21",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "nasa-apod",
+      "name": "NASA APIs",
+      "description": "Astronomy Picture of the Day, Mars rover photos, near-Earth objects, and more. Free DEMO_KEY for low-volume use.",
+      "category": "public-data",
+      "subcategory": "science",
+      "website": "https://api.nasa.gov",
+      "docs_url": "https://api.nasa.gov",
+      "signup_url": "https://api.nasa.gov",
+      "base_url": "https://api.nasa.gov",
+      "example_endpoint": "/planetary/apod?api_key=DEMO_KEY",
+      "auth_type": "api_key",
+      "pricing_tier": "free_with_signup",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": 1000,
+        "per_month": null,
+        "notes": "DEMO_KEY: 30/hr, 50/day per IP. Personal key: 1k/hr."
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY'",
+        "javascript": "const r = await fetch('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY');\nconsole.log(await r.json());",
+        "python": "import requests\nprint(requests.get('https://api.nasa.gov/planetary/apod', params={'api_key':'DEMO_KEY'}).json())"
+      },
+      "example_response": "{\"date\":\"2026-04-25\",\"title\":\"Sardinian Sunset\",\"url\":\"https://apod.nasa.gov/apod/image/2604/sunset.jpg\"}",
+      "tags": [
+        "space",
+        "astronomy",
+        "nasa",
+        "no-auth"
+      ],
+      "popularity_score": 90,
+      "alternatives": [],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "DEMO_KEY is shared across the planet — for any production use, get your own free key"
+        }
+      ],
+      "health_check": {
+        "url": "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "fbi-wanted",
+      "name": "FBI Wanted",
+      "description": "Public access to the FBI's wanted-persons database including fugitives, missing persons, and seeking-info cases.",
+      "category": "public-data",
+      "subcategory": "government",
+      "website": "https://www.fbi.gov/wanted",
+      "docs_url": "https://www.fbi.gov/wanted/api",
+      "signup_url": null,
+      "base_url": "https://api.fbi.gov/wanted/v1",
+      "example_endpoint": "/list?pageSize=10",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": null,
+        "per_month": null,
+        "notes": "Fair-use"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://api.fbi.gov/wanted/v1/list?pageSize=10'",
+        "javascript": "const r = await fetch('https://api.fbi.gov/wanted/v1/list?pageSize=10');\nconsole.log(await r.json());",
+        "python": "import requests\nprint(requests.get('https://api.fbi.gov/wanted/v1/list', params={'pageSize':10}).json())"
+      },
+      "example_response": "{\"total\":1158,\"items\":[{\"title\":\"...\",\"description\":\"...\",\"images\":[]}]}",
+      "tags": [
+        "government",
+        "fbi",
+        "us",
+        "no-auth"
+      ],
+      "popularity_score": 60,
+      "alternatives": [],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "pageSize maximum is 50"
+        },
+        {
+          "severity": "info",
+          "text": "Image URLs in the response sometimes 404 for old cases"
+        }
+      ],
+      "health_check": {
+        "url": "https://api.fbi.gov/wanted/v1/list?pageSize=1",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "open-notify",
+      "name": "Open Notify (ISS)",
+      "description": "Real-time location of the International Space Station and current crew on board.",
+      "category": "public-data",
+      "subcategory": "science",
+      "website": "http://open-notify.org",
+      "docs_url": "http://open-notify.org/Open-Notify-API/",
+      "signup_url": null,
+      "base_url": "http://api.open-notify.org",
+      "example_endpoint": "/iss-now.json",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": null,
+        "per_month": null,
+        "notes": "Fair-use, ISS position updates ~1Hz"
+      },
+      "requires_credit_card": false,
+      "https": false,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'http://api.open-notify.org/iss-now.json'",
+        "javascript": "const r = await fetch('http://api.open-notify.org/iss-now.json');\nconsole.log(await r.json());",
+        "python": "import requests\nprint(requests.get('http://api.open-notify.org/iss-now.json').json())"
+      },
+      "example_response": "{\"message\":\"success\",\"timestamp\":1777142553,\"iss_position\":{\"latitude\":\"1.11\",\"longitude\":\"-115.86\"}}",
+      "tags": [
+        "space",
+        "iss",
+        "nasa",
+        "no-auth"
+      ],
+      "popularity_score": 65,
+      "alternatives": [],
+      "gotchas": [
+        {
+          "severity": "warning",
+          "text": "HTTP only — will be blocked from HTTPS sites by mixed-content policy"
+        },
+        {
+          "severity": "info",
+          "text": "Run by a single volunteer; occasional downtime"
+        }
+      ],
+      "health_check": {
+        "url": "http://api.open-notify.org/iss-now.json",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "uk-police",
+      "name": "UK Police Data",
+      "description": "Crime, stop-and-search, and police force data for England, Wales, and Northern Ireland.",
+      "category": "public-data",
+      "subcategory": "government",
+      "website": "https://data.police.uk",
+      "docs_url": "https://data.police.uk/docs/",
+      "signup_url": null,
+      "base_url": "https://data.police.uk/api",
+      "example_endpoint": "/forces",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": 900,
+        "per_day": null,
+        "per_month": null,
+        "notes": "15 req/sec, ~900/min"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://data.police.uk/api/forces'",
+        "javascript": "const r = await fetch('https://data.police.uk/api/forces');\nconsole.log(await r.json());",
+        "python": "import requests\nprint(requests.get('https://data.police.uk/api/forces').json())"
+      },
+      "example_response": "[{\"id\":\"avon-and-somerset\",\"name\":\"Avon and Somerset Constabulary\"}]",
+      "tags": [
+        "government",
+        "uk",
+        "crime",
+        "no-auth"
+      ],
+      "popularity_score": 55,
+      "alternatives": [],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "Data is published monthly; recent crime data has a 1-2 month lag"
+        }
+      ],
+      "health_check": {
+        "url": "https://data.police.uk/api/forces",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "wikipedia-rest",
+      "name": "Wikipedia REST API",
+      "description": "Page summaries, page HTML, search, and references from Wikipedia. Free, no key.",
+      "category": "public-data",
+      "subcategory": "reference",
+      "website": "https://en.wikipedia.org/api/rest_v1/",
+      "docs_url": "https://en.wikipedia.org/api/rest_v1/",
+      "signup_url": null,
+      "base_url": "https://en.wikipedia.org/api/rest_v1",
+      "example_endpoint": "/page/summary/Albert_Einstein",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": null,
+        "per_month": null,
+        "notes": "200 req/sec per IP, set User-Agent"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl -H 'User-Agent: MyApp (contact@example.com)' 'https://en.wikipedia.org/api/rest_v1/page/summary/Albert_Einstein'",
+        "javascript": "const r = await fetch('https://en.wikipedia.org/api/rest_v1/page/summary/Albert_Einstein');\nconsole.log((await r.json()).extract);",
+        "python": "import requests\nr = requests.get('https://en.wikipedia.org/api/rest_v1/page/summary/Albert_Einstein', headers={'User-Agent':'MyApp/1.0'})\nprint(r.json()['extract'])"
+      },
+      "example_response": "{\"title\":\"Albert Einstein\",\"extract\":\"Albert Einstein was a German-born theoretical physicist...\"}",
+      "tags": [
+        "wikipedia",
+        "reference",
+        "encyclopedia",
+        "no-auth"
+      ],
+      "popularity_score": 92,
+      "alternatives": [],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "Set a descriptive User-Agent or Wikimedia may rate-limit you"
+        },
+        {
+          "severity": "info",
+          "text": "Each language has its own subdomain (en, fr, ja, etc.)"
+        }
+      ],
+      "health_check": {
+        "url": "https://en.wikipedia.org/api/rest_v1/page/summary/Wikipedia",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "disease-sh",
+      "name": "Disease.sh",
+      "description": "COVID-19 and other disease data from multiple sources, aggregated. Free and open-source.",
+      "category": "public-data",
+      "subcategory": "health",
+      "website": "https://disease.sh",
+      "docs_url": "https://disease.sh/docs/",
+      "signup_url": null,
+      "base_url": "https://disease.sh/v3",
+      "example_endpoint": "/covid-19/all",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": null,
+        "per_month": null,
+        "notes": "Fair-use; cached responses"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://disease.sh/v3/covid-19/all'",
+        "javascript": "const r = await fetch('https://disease.sh/v3/covid-19/all');\nconsole.log(await r.json());",
+        "python": "import requests\nprint(requests.get('https://disease.sh/v3/covid-19/all').json())"
+      },
+      "example_response": "{\"updated\":1777142486073,\"cases\":704753890,\"deaths\":7010681}",
+      "tags": [
+        "health",
+        "covid",
+        "no-auth"
+      ],
+      "popularity_score": 60,
+      "alternatives": [],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "Some upstream data sources stopped reporting after 2023; freshness varies by endpoint"
+        }
+      ],
+      "health_check": {
+        "url": "https://disease.sh/v3/covid-19/all",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "ipify",
+      "name": "ipify",
+      "description": "Returns the public IP of the requesting client. Tiny, fast, no key.",
+      "category": "dev-tools",
+      "subcategory": "network",
+      "website": "https://www.ipify.org",
+      "docs_url": "https://www.ipify.org",
+      "signup_url": null,
+      "base_url": "https://api.ipify.org",
+      "example_endpoint": "?format=json",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": null,
+        "per_month": null,
+        "notes": "No documented limits"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://api.ipify.org?format=json'",
+        "javascript": "const r = await fetch('https://api.ipify.org?format=json');\nconsole.log((await r.json()).ip);",
+        "python": "import requests\nprint(requests.get('https://api.ipify.org', params={'format':'json'}).json()['ip'])"
+      },
+      "example_response": "{\"ip\":\"24.62.152.23\"}",
+      "tags": [
+        "ip",
+        "network",
+        "no-auth"
+      ],
+      "popularity_score": 88,
+      "alternatives": [
+        "ip-api"
+      ],
+      "gotchas": [],
+      "health_check": {
+        "url": "https://api.ipify.org?format=json",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "dnsjson",
+      "name": "DNS JSON",
+      "description": "DNS lookups (A, AAAA, MX, TXT, etc.) over HTTPS in JSON.",
+      "category": "dev-tools",
+      "subcategory": "network",
+      "website": "https://dnsjson.com",
+      "docs_url": "https://dnsjson.com",
+      "signup_url": null,
+      "base_url": "https://dnsjson.com",
+      "example_endpoint": "/google.com/A.json",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": null,
+        "per_month": null,
+        "notes": "No documented limits"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://dnsjson.com/google.com/A.json'",
+        "javascript": "const r = await fetch('https://dnsjson.com/google.com/A.json');\nconsole.log(await r.json());",
+        "python": "import requests\nprint(requests.get('https://dnsjson.com/google.com/A.json').json())"
+      },
+      "example_response": "{\"results\":{\"name\":\"google.com\",\"type\":\"A\",\"records\":[\"172.217.22.78\"]}}",
+      "tags": [
+        "dns",
+        "network",
+        "no-auth"
+      ],
+      "popularity_score": 50,
+      "alternatives": [],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "Returns 200 OK with empty records when domain doesn't exist — check records.length"
+        }
+      ],
+      "health_check": {
+        "url": "https://dnsjson.com/google.com/A.json",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "is-gd",
+      "name": "is.gd",
+      "description": "URL shortener with a clean JSON/XML/plain API. No signup.",
+      "category": "dev-tools",
+      "subcategory": "url-shortener",
+      "website": "https://is.gd",
+      "docs_url": "https://is.gd/developers.php",
+      "signup_url": null,
+      "base_url": "https://is.gd",
+      "example_endpoint": "/create.php?format=json&url=https://example.com",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": 60,
+        "per_day": null,
+        "per_month": null,
+        "notes": "1 req/sec recommended; abuse triggers throttling"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://is.gd/create.php?format=json&url=https://example.com'",
+        "javascript": "const r = await fetch('https://is.gd/create.php?format=json&url=' + encodeURIComponent('https://example.com'));\nconsole.log(await r.json());",
+        "python": "import requests\nr = requests.get('https://is.gd/create.php', params={'format':'json','url':'https://example.com'})\nprint(r.json())"
+      },
+      "example_response": "{\"shorturl\":\"https://is.gd/VBPXqa\"}",
+      "tags": [
+        "url",
+        "shortener",
+        "no-auth"
+      ],
+      "popularity_score": 65,
+      "alternatives": [],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "No way to delete or edit a created short URL"
+        },
+        {
+          "severity": "info",
+          "text": "Returns errors as 200 OK with an errorcode field — check response shape"
+        }
+      ],
+      "health_check": {
+        "url": "https://is.gd/create.php?format=json&url=https://example.com",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "httpbin",
+      "name": "httpbin.org",
+      "description": "HTTP request and response service for testing clients. Echoes headers, supports every method, and simulates status codes.",
+      "category": "dev-tools",
+      "subcategory": "testing",
+      "website": "https://httpbin.org",
+      "docs_url": "https://httpbin.org",
+      "signup_url": null,
+      "base_url": "https://httpbin.org",
+      "example_endpoint": "/get?test=1",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": null,
+        "per_month": null,
+        "notes": "Fair-use"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": false,
+      "code_examples": {
+        "curl": "curl 'https://httpbin.org/get?test=1'",
+        "javascript": "const r = await fetch('https://httpbin.org/get?test=1');\nconsole.log(await r.json());",
+        "python": "import requests\nprint(requests.get('https://httpbin.org/get', params={'test':'1'}).json())"
+      },
+      "example_response": "{\"args\":{\"test\":\"1\"},\"headers\":{\"Host\":\"httpbin.org\"},\"url\":\"https://httpbin.org/get?test=1\"}",
+      "tags": [
+        "testing",
+        "http",
+        "no-auth"
+      ],
+      "popularity_score": 90,
+      "alternatives": [],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "Public instance occasionally has slow response times"
+        },
+        {
+          "severity": "info",
+          "text": "For private/CI use, run kennethreitz/httpbin in Docker"
+        }
+      ],
+      "health_check": {
+        "url": "https://httpbin.org/get",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": false,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "uuid-tools",
+      "name": "UUID Tools",
+      "description": "Generate UUIDs (v1, v3, v4, v5) via a simple HTTP endpoint.",
+      "category": "dev-tools",
+      "subcategory": "utility",
+      "website": "https://www.uuidtools.com",
+      "docs_url": "https://www.uuidtools.com/api",
+      "signup_url": null,
+      "base_url": "https://www.uuidtools.com/api",
+      "example_endpoint": "/generate/v4",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": null,
+        "per_month": null,
+        "notes": "Fair-use"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://www.uuidtools.com/api/generate/v4'",
+        "javascript": "const r = await fetch('https://www.uuidtools.com/api/generate/v4');\nconsole.log(await r.json());",
+        "python": "import requests\nprint(requests.get('https://www.uuidtools.com/api/generate/v4').json())"
+      },
+      "example_response": "[\"7a1ea1bb-5def-4969-9e07-84434db2f2a2\"]",
+      "tags": [
+        "uuid",
+        "utility",
+        "no-auth"
+      ],
+      "popularity_score": 50,
+      "alternatives": [],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "For most apps, generate UUIDs locally — calling an API for this is overkill"
+        }
+      ],
+      "health_check": {
+        "url": "https://www.uuidtools.com/api/generate/v4",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "jsonbin",
+      "name": "JSONbin.io",
+      "description": "Free JSON storage as a service. Create bins, version them, share via API.",
+      "category": "dev-tools",
+      "subcategory": "storage",
+      "website": "https://jsonbin.io",
+      "docs_url": "https://jsonbin.io/api-reference",
+      "signup_url": "https://jsonbin.io/login",
+      "base_url": "https://api.jsonbin.io/v3",
+      "example_endpoint": "/b",
+      "auth_type": "api_key",
+      "pricing_tier": "free_with_signup",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": null,
+        "per_month": 10000,
+        "notes": "10k requests/month free"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl -X POST https://api.jsonbin.io/v3/b -H 'X-Master-Key: {{API_KEY}}' -H 'Content-Type: application/json' -d '{\"hello\":\"world\"}'",
+        "javascript": "const r = await fetch('https://api.jsonbin.io/v3/b', { method:'POST', headers:{'X-Master-Key':'{{API_KEY}}','Content-Type':'application/json'}, body:JSON.stringify({hello:'world'}) });\nconsole.log(await r.json());",
+        "python": "import requests\nr = requests.post('https://api.jsonbin.io/v3/b', json={'hello':'world'}, headers={'X-Master-Key':'{{API_KEY}}'})\nprint(r.json())"
+      },
+      "example_response": "{\"record\":{\"hello\":\"world\"},\"metadata\":{\"id\":\"...\",\"createdAt\":\"...\"}}",
+      "tags": [
+        "storage",
+        "json",
+        "prototyping"
+      ],
+      "popularity_score": 65,
+      "alternatives": [],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "Free tier bins are public unless marked private (counts against quota differently)"
+        }
+      ],
+      "health_check": {
+        "url": "https://api.jsonbin.io/v3/b",
+        "method": "GET",
+        "expected_status": 401,
+        "requires_auth": true
+      },
+      "_meta": {
+        "verified": false,
+        "last_verified": null,
+        "health_status": "unknown",
+        "uptime_percentage": null,
+        "cors_verified": null,
+        "verified_by": null
+      }
+    },
+    {
+      "id": "jsonplaceholder",
+      "name": "JSONPlaceholder",
+      "description": "Fake REST API for prototyping. Posts, comments, users, todos, photos. Writes are accepted but not persisted.",
+      "category": "mock-data",
+      "subcategory": "rest-fixtures",
+      "website": "https://jsonplaceholder.typicode.com",
+      "docs_url": "https://jsonplaceholder.typicode.com",
+      "signup_url": null,
+      "base_url": "https://jsonplaceholder.typicode.com",
+      "example_endpoint": "/todos/1",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": null,
+        "per_month": null,
+        "notes": "Fair-use"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://jsonplaceholder.typicode.com/todos/1'",
+        "javascript": "const r = await fetch('https://jsonplaceholder.typicode.com/todos/1');\nconsole.log(await r.json());",
+        "python": "import requests\nprint(requests.get('https://jsonplaceholder.typicode.com/todos/1').json())"
+      },
+      "example_response": "{\"userId\":1,\"id\":1,\"title\":\"delectus aut autem\",\"completed\":false}",
+      "tags": [
+        "mock",
+        "rest",
+        "fixtures",
+        "no-auth"
+      ],
+      "popularity_score": 95,
+      "alternatives": [
+        "dummyjson"
+      ],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "POST/PUT/DELETE return 200/201 but don't actually persist"
+        }
+      ],
+      "health_check": {
+        "url": "https://jsonplaceholder.typicode.com/todos/1",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "dummyjson",
+      "name": "DummyJSON",
+      "description": "Fake e-commerce-style data: products, users, posts, carts, recipes, todos, quotes, images.",
+      "category": "mock-data",
+      "subcategory": "rest-fixtures",
+      "website": "https://dummyjson.com",
+      "docs_url": "https://dummyjson.com/docs",
+      "signup_url": null,
+      "base_url": "https://dummyjson.com",
+      "example_endpoint": "/products/1",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": null,
+        "per_month": null,
+        "notes": "Fair-use"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://dummyjson.com/products/1'",
+        "javascript": "const r = await fetch('https://dummyjson.com/products/1');\nconsole.log(await r.json());",
+        "python": "import requests\nprint(requests.get('https://dummyjson.com/products/1').json())"
+      },
+      "example_response": "{\"id\":1,\"title\":\"Essence Mascara Lash Princess\",\"price\":9.99,\"rating\":4.94}",
+      "tags": [
+        "mock",
+        "ecommerce",
+        "fixtures",
+        "no-auth"
+      ],
+      "popularity_score": 85,
+      "alternatives": [
+        "jsonplaceholder"
+      ],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "POSTs return a fake ID but are not persisted"
+        }
+      ],
+      "health_check": {
+        "url": "https://dummyjson.com/products/1",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "randomuser",
+      "name": "RandomUser.me",
+      "description": "Generate random user profiles with photos, addresses, phones, locales. Great for UI mockups.",
+      "category": "mock-data",
+      "subcategory": "fake-users",
+      "website": "https://randomuser.me",
+      "docs_url": "https://randomuser.me/documentation",
+      "signup_url": null,
+      "base_url": "https://randomuser.me/api",
+      "example_endpoint": "/?results=5",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": null,
+        "per_month": null,
+        "notes": "Fair-use"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://randomuser.me/api/?results=5'",
+        "javascript": "const r = await fetch('https://randomuser.me/api/?results=5');\nconsole.log((await r.json()).results);",
+        "python": "import requests\nprint(requests.get('https://randomuser.me/api/', params={'results':5}).json())"
+      },
+      "example_response": "{\"results\":[{\"name\":{\"first\":\"Maureen\",\"last\":\"Andrews\"},\"email\":\"...\"}]}",
+      "tags": [
+        "mock",
+        "users",
+        "fake-data",
+        "no-auth"
+      ],
+      "popularity_score": 92,
+      "alternatives": [],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "Photos are reused from a fixed pool of ~100 portraits"
+        },
+        {
+          "severity": "info",
+          "text": "Results are not deterministic — add seed= for reproducibility"
+        }
+      ],
+      "health_check": {
+        "url": "https://randomuser.me/api/?results=1",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "picsum",
+      "name": "Lorem Picsum",
+      "description": "Placeholder images at any size. Stable URLs, optional grayscale and blur.",
+      "category": "mock-data",
+      "subcategory": "images",
+      "website": "https://picsum.photos",
+      "docs_url": "https://picsum.photos",
+      "signup_url": null,
+      "base_url": "https://picsum.photos",
+      "example_endpoint": "/200/300",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": null,
+        "per_month": null,
+        "notes": "Fair-use, CDN-cached"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl -L 'https://picsum.photos/200/300' --output sample.jpg",
+        "javascript": "// Use directly in <img src='https://picsum.photos/200/300' />",
+        "python": "import requests\nr = requests.get('https://picsum.photos/200/300')\nopen('sample.jpg','wb').write(r.content)"
+      },
+      "example_response": "(binary JPEG image, 200x300)",
+      "tags": [
+        "images",
+        "placeholder",
+        "no-auth"
+      ],
+      "popularity_score": 90,
+      "alternatives": [
+        "cataas"
+      ],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "Requests redirect (302) — follow redirects in your client"
+        },
+        {
+          "severity": "info",
+          "text": "Use /seed/{any-string}/200/300 for stable repeatable images"
+        }
+      ],
+      "health_check": {
+        "url": "https://picsum.photos/200/300",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "genderize",
+      "name": "Genderize.io",
+      "description": "Predict gender from a first name. Probabilistic, with confidence score.",
+      "category": "mock-data",
+      "subcategory": "predict",
+      "website": "https://genderize.io",
+      "docs_url": "https://genderize.io",
+      "signup_url": "https://store.genderize.io/signup",
+      "base_url": "https://api.genderize.io",
+      "example_endpoint": "?name=alex",
+      "auth_type": "none",
+      "pricing_tier": "free_tier_limited",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": 100,
+        "per_month": null,
+        "notes": "Free tier: 100 names/day per IP"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://api.genderize.io?name=alex'",
+        "javascript": "const r = await fetch('https://api.genderize.io?name=alex');\nconsole.log(await r.json());",
+        "python": "import requests\nprint(requests.get('https://api.genderize.io', params={'name':'alex'}).json())"
+      },
+      "example_response": "{\"name\":\"alex\",\"gender\":\"male\",\"probability\":0.95,\"count\":1665200}",
+      "tags": [
+        "predict",
+        "name",
+        "no-auth"
+      ],
+      "popularity_score": 60,
+      "alternatives": [
+        "agify"
+      ],
+      "gotchas": [
+        {
+          "severity": "warning",
+          "text": "Trained on Western name datasets — accuracy is much lower for non-Western names"
+        },
+        {
+          "severity": "info",
+          "text": "Returns null gender when confidence is too low"
+        }
+      ],
+      "health_check": {
+        "url": "https://api.genderize.io?name=alex",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "agify",
+      "name": "Agify.io",
+      "description": "Predict age from a first name. Sibling of Genderize and Nationalize.",
+      "category": "mock-data",
+      "subcategory": "predict",
+      "website": "https://agify.io",
+      "docs_url": "https://agify.io",
+      "signup_url": "https://store.genderize.io/signup",
+      "base_url": "https://api.agify.io",
+      "example_endpoint": "?name=michael",
+      "auth_type": "none",
+      "pricing_tier": "free_tier_limited",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": 100,
+        "per_month": null,
+        "notes": "Free tier: 100 names/day per IP"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://api.agify.io?name=michael'",
+        "javascript": "const r = await fetch('https://api.agify.io?name=michael');\nconsole.log(await r.json());",
+        "python": "import requests\nprint(requests.get('https://api.agify.io', params={'name':'michael'}).json())"
+      },
+      "example_response": "{\"name\":\"michael\",\"age\":65,\"count\":298219}",
+      "tags": [
+        "predict",
+        "name",
+        "no-auth"
+      ],
+      "popularity_score": 55,
+      "alternatives": [
+        "genderize"
+      ],
+      "gotchas": [
+        {
+          "severity": "warning",
+          "text": "Western dataset bias — non-Western names get sparse data and weaker predictions"
+        }
+      ],
+      "health_check": {
+        "url": "https://api.agify.io?name=michael",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "icanhazdadjoke",
+      "name": "icanhazdadjoke",
+      "description": "Random dad jokes. Plain text or JSON depending on the Accept header.",
+      "category": "entertainment",
+      "subcategory": "jokes",
+      "website": "https://icanhazdadjoke.com",
+      "docs_url": "https://icanhazdadjoke.com/api",
+      "signup_url": null,
+      "base_url": "https://icanhazdadjoke.com",
+      "example_endpoint": "/",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": null,
+        "per_month": null,
+        "notes": "Fair-use"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl -H 'Accept: application/json' https://icanhazdadjoke.com/",
+        "javascript": "const r = await fetch('https://icanhazdadjoke.com/', { headers: { Accept: 'application/json' } });\nconsole.log((await r.json()).joke);",
+        "python": "import requests\nr = requests.get('https://icanhazdadjoke.com/', headers={'Accept':'application/json'})\nprint(r.json()['joke'])"
+      },
+      "example_response": "{\"id\":\"ly5hNR7w5Ed\",\"joke\":\"I tried taking some high resolution photos...\",\"status\":200}",
+      "tags": [
+        "jokes",
+        "humor",
+        "no-auth"
+      ],
+      "popularity_score": 90,
+      "alternatives": [
+        "official-joke-api",
+        "jokeapi"
+      ],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "Without Accept: application/json header, returns plain text instead of JSON"
+        },
+        {
+          "severity": "info",
+          "text": "Set a User-Agent for politeness"
+        }
+      ],
+      "health_check": {
+        "url": "https://icanhazdadjoke.com/",
+        "method": "GET",
+        "expected_status": 200,
+        "headers": {
+          "Accept": "application/json"
+        },
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "official-joke-api",
+      "name": "Official Joke API",
+      "description": "Random jokes with setup and punchline. Categories: general, programming, knock-knock, dad.",
+      "category": "entertainment",
+      "subcategory": "jokes",
+      "website": "https://github.com/15Dkatz/official_joke_api",
+      "docs_url": "https://github.com/15Dkatz/official_joke_api",
+      "signup_url": null,
+      "base_url": "https://official-joke-api.appspot.com",
+      "example_endpoint": "/random_joke",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": null,
+        "per_month": null,
+        "notes": "Fair-use"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://official-joke-api.appspot.com/random_joke'",
+        "javascript": "const r = await fetch('https://official-joke-api.appspot.com/random_joke');\nconsole.log(await r.json());",
+        "python": "import requests\nprint(requests.get('https://official-joke-api.appspot.com/random_joke').json())"
+      },
+      "example_response": "{\"type\":\"general\",\"setup\":\"Did you hear...\",\"punchline\":\"Neither did he.\",\"id\":100}",
+      "tags": [
+        "jokes",
+        "humor",
+        "no-auth"
+      ],
+      "popularity_score": 80,
+      "alternatives": [
+        "icanhazdadjoke",
+        "jokeapi"
+      ],
+      "gotchas": [
+        {
+          "severity": "warning",
+          "text": "Single maintainer, hosted on App Engine — has had multi-day outages historically"
+        }
+      ],
+      "health_check": {
+        "url": "https://official-joke-api.appspot.com/random_joke",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "open-trivia",
+      "name": "Open Trivia DB",
+      "description": "4,500+ trivia questions across 24 categories. Multiple-choice or true/false, configurable difficulty.",
+      "category": "entertainment",
+      "subcategory": "trivia",
+      "website": "https://opentdb.com",
+      "docs_url": "https://opentdb.com/api_config.php",
+      "signup_url": null,
+      "base_url": "https://opentdb.com",
+      "example_endpoint": "/api.php?amount=10",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": null,
+        "per_month": null,
+        "notes": "1 req/5 sec recommended; use session tokens"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://opentdb.com/api.php?amount=10'",
+        "javascript": "const r = await fetch('https://opentdb.com/api.php?amount=10');\nconsole.log((await r.json()).results);",
+        "python": "import requests\nprint(requests.get('https://opentdb.com/api.php', params={'amount':10}).json())"
+      },
+      "example_response": "{\"response_code\":0,\"results\":[{\"category\":\"Animals\",\"question\":\"Sea sponges can have hearts.\",\"correct_answer\":\"False\"}]}",
+      "tags": [
+        "trivia",
+        "quiz",
+        "games",
+        "no-auth"
+      ],
+      "popularity_score": 85,
+      "alternatives": [],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "Questions are HTML-encoded by default — set encode=url3986 or decode them"
+        },
+        {
+          "severity": "info",
+          "text": "Use a session token to avoid getting the same question twice"
+        }
+      ],
+      "health_check": {
+        "url": "https://opentdb.com/api.php?amount=1",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "pokeapi",
+      "name": "PokéAPI",
+      "description": "Comprehensive Pokémon data — species, moves, abilities, evolution chains, locations. RESTful and free.",
+      "category": "entertainment",
+      "subcategory": "fandom",
+      "website": "https://pokeapi.co",
+      "docs_url": "https://pokeapi.co/docs/v2",
+      "signup_url": null,
+      "base_url": "https://pokeapi.co/api/v2",
+      "example_endpoint": "/pokemon/ditto",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": 100,
+        "per_day": null,
+        "per_month": null,
+        "notes": "100 req/min fair-use; cache aggressively"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://pokeapi.co/api/v2/pokemon/ditto'",
+        "javascript": "const r = await fetch('https://pokeapi.co/api/v2/pokemon/ditto');\nconsole.log(await r.json());",
+        "python": "import requests\nprint(requests.get('https://pokeapi.co/api/v2/pokemon/ditto').json())"
+      },
+      "example_response": "{\"id\":132,\"name\":\"ditto\",\"abilities\":[{\"ability\":{\"name\":\"limber\"}}]}",
+      "tags": [
+        "pokemon",
+        "games",
+        "fandom",
+        "no-auth"
+      ],
+      "popularity_score": 95,
+      "alternatives": [],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "Responses are large — request only the fields you need or you'll burn through the rate limit"
+        },
+        {
+          "severity": "info",
+          "text": "Cache locally; the data is essentially static"
+        }
+      ],
+      "health_check": {
+        "url": "https://pokeapi.co/api/v2/pokemon/ditto",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "ghibli",
+      "name": "Studio Ghibli API",
+      "description": "Films, characters, locations, vehicles, and species from Studio Ghibli movies.",
+      "category": "entertainment",
+      "subcategory": "fandom",
+      "website": "https://ghibliapi.vercel.app",
+      "docs_url": "https://ghibliapi.vercel.app/",
+      "signup_url": null,
+      "base_url": "https://ghibliapi.vercel.app",
+      "example_endpoint": "/films",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": null,
+        "per_month": null,
+        "notes": "Fair-use, hosted on Vercel"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://ghibliapi.vercel.app/films'",
+        "javascript": "const r = await fetch('https://ghibliapi.vercel.app/films');\nconsole.log(await r.json());",
+        "python": "import requests\nprint(requests.get('https://ghibliapi.vercel.app/films').json())"
+      },
+      "example_response": "[{\"id\":\"...\",\"title\":\"Castle in the Sky\",\"director\":\"Hayao Miyazaki\"}]",
+      "tags": [
+        "ghibli",
+        "movies",
+        "fandom",
+        "no-auth"
+      ],
+      "popularity_score": 75,
+      "alternatives": [],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "Originally hosted at ghibliapi.herokuapp.com — has migrated to Vercel"
+        }
+      ],
+      "health_check": {
+        "url": "https://ghibliapi.vercel.app/films",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "rick-and-morty",
+      "name": "Rick and Morty API",
+      "description": "Characters, episodes, and locations from the Rick and Morty TV show. RESTful, no auth.",
+      "category": "entertainment",
+      "subcategory": "fandom",
+      "website": "https://rickandmortyapi.com",
+      "docs_url": "https://rickandmortyapi.com/documentation",
+      "signup_url": null,
+      "base_url": "https://rickandmortyapi.com/api",
+      "example_endpoint": "/character/1",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": 600,
+        "per_day": null,
+        "per_month": null,
+        "notes": "10k req/day soft limit"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://rickandmortyapi.com/api/character/1'",
+        "javascript": "const r = await fetch('https://rickandmortyapi.com/api/character/1');\nconsole.log(await r.json());",
+        "python": "import requests\nprint(requests.get('https://rickandmortyapi.com/api/character/1').json())"
+      },
+      "example_response": "{\"id\":1,\"name\":\"Rick Sanchez\",\"status\":\"Alive\",\"species\":\"Human\"}",
+      "tags": [
+        "rickandmorty",
+        "tv",
+        "fandom",
+        "no-auth"
+      ],
+      "popularity_score": 88,
+      "alternatives": [],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "Show ended — no new data is being added"
+        }
+      ],
+      "health_check": {
+        "url": "https://rickandmortyapi.com/api/character/1",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "advice-slip",
+      "name": "Advice Slip API",
+      "description": "Returns random pieces of advice. Tiny, fast, full CORS support.",
+      "category": "entertainment",
+      "subcategory": "quotes",
+      "website": "https://api.adviceslip.com",
+      "docs_url": "https://api.adviceslip.com/",
+      "signup_url": null,
+      "base_url": "https://api.adviceslip.com",
+      "example_endpoint": "/advice",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": null,
+        "per_month": null,
+        "notes": "Responses cached upstream — same advice may repeat for 1-2 sec"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://api.adviceslip.com/advice'",
+        "javascript": "const r = await fetch('https://api.adviceslip.com/advice');\nconsole.log((await r.json()).slip.advice);",
+        "python": "import requests\nprint(requests.get('https://api.adviceslip.com/advice').json()['slip']['advice'])"
+      },
+      "example_response": "{\"slip\":{\"id\":44,\"advice\":\"If you are feeling down, try holding a pencil...\"}}",
+      "tags": [
+        "quotes",
+        "advice",
+        "no-auth"
+      ],
+      "popularity_score": 70,
+      "alternatives": [
+        "zenquotes"
+      ],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "Edge cache returns the same advice for ~2 seconds — add a cache-buster param if you need uniqueness"
+        }
+      ],
+      "health_check": {
+        "url": "https://api.adviceslip.com/advice",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "pollinations",
+      "name": "Pollinations.ai",
+      "description": "Free AI image generation via simple URL. No signup, no API key. Optional auth for higher quotas.",
+      "category": "ai-ml",
+      "subcategory": "image-generation",
+      "website": "https://pollinations.ai",
+      "docs_url": "https://github.com/pollinations/pollinations/blob/master/APIDOCS.md",
+      "signup_url": null,
+      "base_url": "https://image.pollinations.ai",
+      "example_endpoint": "/prompt/a%20cat?width=512&height=512",
+      "auth_type": "none",
+      "pricing_tier": "truly_free",
+      "rate_limits": {
+        "per_minute": 5,
+        "per_day": null,
+        "per_month": null,
+        "notes": "Anonymous tier: ~5 req/min, queued. Sign in for higher quotas."
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl -L 'https://image.pollinations.ai/prompt/a%20cat?width=512&height=512' --output cat.jpg",
+        "javascript": "// Use directly in <img>:\n// <img src='https://image.pollinations.ai/prompt/a%20cat?width=512&height=512' />",
+        "python": "import requests\nr = requests.get('https://image.pollinations.ai/prompt/a%20cat', params={'width':512,'height':512})\nopen('cat.jpg','wb').write(r.content)"
+      },
+      "example_response": "(binary JPEG image, generated from the prompt)",
+      "tags": [
+        "ai",
+        "image-generation",
+        "no-auth",
+        "free"
+      ],
+      "popularity_score": 75,
+      "alternatives": [
+        "replicate"
+      ],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "Anonymous tier is queued — first request can take 10-30 sec"
+        },
+        {
+          "severity": "info",
+          "text": "Images may include the Pollinations watermark unless you use a paid tier"
+        }
+      ],
+      "health_check": {
+        "url": "https://image.pollinations.ai/prompt/test?width=64&height=64",
+        "method": "GET",
+        "expected_status": 200,
+        "requires_auth": false
+      },
+      "_meta": {
+        "verified": true,
+        "last_verified": "2026-04-25",
+        "health_status": "up",
+        "uptime_percentage": null,
+        "cors_verified": true,
+        "verified_by": "manual-curl"
+      }
+    },
+    {
+      "id": "huggingface-inference",
+      "name": "Hugging Face Inference API",
+      "description": "Run hundreds of open-source models for text, image, audio, and embeddings. Free shared compute tier.",
+      "category": "ai-ml",
+      "subcategory": "inference",
+      "website": "https://huggingface.co/inference-api",
+      "docs_url": "https://huggingface.co/docs/inference-providers/index",
+      "signup_url": "https://huggingface.co/join",
+      "base_url": "https://api-inference.huggingface.co",
+      "example_endpoint": "/models/distilbert-base-uncased-finetuned-sst-2-english",
+      "auth_type": "api_key",
+      "pricing_tier": "free_with_signup",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": null,
+        "per_month": null,
+        "notes": "Free tier: shared compute, rate-limited; cold-start delays"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl https://api-inference.huggingface.co/models/distilbert-base-uncased-finetuned-sst-2-english -X POST -H 'Authorization: Bearer {{API_KEY}}' -d '{\"inputs\":\"I love this!\"}'",
+        "javascript": "const r = await fetch('https://api-inference.huggingface.co/models/distilbert-base-uncased-finetuned-sst-2-english', {\n  method:'POST',\n  headers:{ Authorization:'Bearer {{API_KEY}}', 'Content-Type':'application/json' },\n  body: JSON.stringify({ inputs:'I love this!' })\n});\nconsole.log(await r.json());",
+        "python": "import requests\nr = requests.post('https://api-inference.huggingface.co/models/distilbert-base-uncased-finetuned-sst-2-english', headers={'Authorization':'Bearer {{API_KEY}}'}, json={'inputs':'I love this!'})\nprint(r.json())"
+      },
+      "example_response": "[[{\"label\":\"POSITIVE\",\"score\":0.999},{\"label\":\"NEGATIVE\",\"score\":0.001}]]",
+      "tags": [
+        "ai",
+        "nlp",
+        "huggingface"
+      ],
+      "popularity_score": 95,
+      "alternatives": [
+        "cohere",
+        "groq",
+        "mistral"
+      ],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "First request to a model triggers a cold start — can take 20+ seconds"
+        },
+        {
+          "severity": "warning",
+          "text": "Many flagship models are now Pro-only"
+        }
+      ],
+      "health_check": {
+        "url": "https://api-inference.huggingface.co/models/distilbert-base-uncased-finetuned-sst-2-english",
+        "method": "POST",
+        "expected_status": 401,
+        "requires_auth": true
+      },
+      "_meta": {
+        "verified": false,
+        "last_verified": null,
+        "health_status": "unknown",
+        "uptime_percentage": null,
+        "cors_verified": null,
+        "verified_by": null
+      }
+    },
+    {
+      "id": "cohere",
+      "name": "Cohere",
+      "description": "Production-grade language models for generation, embeddings, classification, and reranking. Free trial keys.",
+      "category": "ai-ml",
+      "subcategory": "llm",
+      "website": "https://cohere.com",
+      "docs_url": "https://docs.cohere.com",
+      "signup_url": "https://dashboard.cohere.com/welcome/register",
+      "base_url": "https://api.cohere.com/v2",
+      "example_endpoint": "/chat",
+      "auth_type": "api_key",
+      "pricing_tier": "free_with_signup",
+      "rate_limits": {
+        "per_minute": 100,
+        "per_day": null,
+        "per_month": 1000,
+        "notes": "Trial keys: 100 req/min, ~1k req/month"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl -X POST https://api.cohere.com/v2/chat -H 'Authorization: Bearer {{API_KEY}}' -H 'Content-Type: application/json' -d '{\"model\":\"command-r\",\"messages\":[{\"role\":\"user\",\"content\":\"hi\"}]}'",
+        "javascript": "const r = await fetch('https://api.cohere.com/v2/chat', {\n  method:'POST',\n  headers:{ Authorization:'Bearer {{API_KEY}}', 'Content-Type':'application/json' },\n  body: JSON.stringify({ model:'command-r', messages:[{role:'user',content:'hi'}] })\n});\nconsole.log(await r.json());",
+        "python": "import requests\nr = requests.post('https://api.cohere.com/v2/chat', headers={'Authorization':'Bearer {{API_KEY}}'}, json={'model':'command-r','messages':[{'role':'user','content':'hi'}]})\nprint(r.json())"
+      },
+      "example_response": "{\"message\":{\"content\":[{\"type\":\"text\",\"text\":\"Hello!\"}]}}",
+      "tags": [
+        "ai",
+        "llm",
+        "embeddings"
+      ],
+      "popularity_score": 78,
+      "alternatives": [
+        "huggingface-inference",
+        "mistral",
+        "groq"
+      ],
+      "gotchas": [
+        {
+          "severity": "warning",
+          "text": "Trial keys cannot be used in production deployments per ToS"
+        }
+      ],
+      "health_check": {
+        "url": "https://api.cohere.com/v2/chat",
+        "method": "POST",
+        "expected_status": 401,
+        "requires_auth": true
+      },
+      "_meta": {
+        "verified": false,
+        "last_verified": null,
+        "health_status": "unknown",
+        "uptime_percentage": null,
+        "cors_verified": null,
+        "verified_by": null
+      }
+    },
+    {
+      "id": "groq",
+      "name": "Groq",
+      "description": "Extremely fast LPU inference for open-source LLMs (Llama, Mixtral, Gemma). Generous free tier.",
+      "category": "ai-ml",
+      "subcategory": "llm",
+      "website": "https://groq.com",
+      "docs_url": "https://console.groq.com/docs",
+      "signup_url": "https://console.groq.com",
+      "base_url": "https://api.groq.com/openai/v1",
+      "example_endpoint": "/chat/completions",
+      "auth_type": "api_key",
+      "pricing_tier": "free_with_signup",
+      "rate_limits": {
+        "per_minute": 30,
+        "per_day": 14400,
+        "per_month": null,
+        "notes": "Free tier: 30 RPM, 14.4k RPD per model. OpenAI-compatible API."
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl https://api.groq.com/openai/v1/chat/completions -H 'Authorization: Bearer {{API_KEY}}' -H 'Content-Type: application/json' -d '{\"model\":\"llama-3.1-8b-instant\",\"messages\":[{\"role\":\"user\",\"content\":\"hi\"}]}'",
+        "javascript": "const r = await fetch('https://api.groq.com/openai/v1/chat/completions', {\n  method:'POST',\n  headers:{ Authorization:'Bearer {{API_KEY}}', 'Content-Type':'application/json' },\n  body: JSON.stringify({ model:'llama-3.1-8b-instant', messages:[{role:'user',content:'hi'}] })\n});\nconsole.log(await r.json());",
+        "python": "from openai import OpenAI\nclient = OpenAI(api_key='{{API_KEY}}', base_url='https://api.groq.com/openai/v1')\nprint(client.chat.completions.create(model='llama-3.1-8b-instant', messages=[{'role':'user','content':'hi'}]).choices[0].message.content)"
+      },
+      "example_response": "{\"choices\":[{\"message\":{\"role\":\"assistant\",\"content\":\"Hello!\"}}]}",
+      "tags": [
+        "ai",
+        "llm",
+        "fast",
+        "openai-compatible"
+      ],
+      "popularity_score": 90,
+      "alternatives": [
+        "huggingface-inference",
+        "mistral",
+        "cohere"
+      ],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "Per-model rate limits — switching models won't bypass them, they're per account"
+        },
+        {
+          "severity": "info",
+          "text": "Free models change over time; check the dashboard for current list"
+        }
+      ],
+      "health_check": {
+        "url": "https://api.groq.com/openai/v1/models",
+        "method": "GET",
+        "expected_status": 401,
+        "requires_auth": true
+      },
+      "_meta": {
+        "verified": false,
+        "last_verified": null,
+        "health_status": "unknown",
+        "uptime_percentage": null,
+        "cors_verified": null,
+        "verified_by": null
+      }
+    },
+    {
+      "id": "google-gemini",
+      "name": "Google Gemini API",
+      "description": "Google's flagship multimodal LLM family. Free tier on Gemini Flash with reasonable limits.",
+      "category": "ai-ml",
+      "subcategory": "llm",
+      "website": "https://ai.google.dev",
+      "docs_url": "https://ai.google.dev/gemini-api/docs",
+      "signup_url": "https://aistudio.google.com/app/apikey",
+      "base_url": "https://generativelanguage.googleapis.com/v1beta",
+      "example_endpoint": "/models/gemini-1.5-flash:generateContent?key={{API_KEY}}",
+      "auth_type": "api_key",
+      "pricing_tier": "free_with_signup",
+      "rate_limits": {
+        "per_minute": 15,
+        "per_day": 1500,
+        "per_month": null,
+        "notes": "Gemini 1.5 Flash free tier: 15 RPM, 1M TPM, 1.5k RPD"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={{API_KEY}}' -H 'Content-Type: application/json' -d '{\"contents\":[{\"parts\":[{\"text\":\"hi\"}]}]}'",
+        "javascript": "const r = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={{API_KEY}}', {\n  method:'POST', headers:{ 'Content-Type':'application/json' },\n  body: JSON.stringify({ contents:[{ parts:[{ text:'hi' }] }] })\n});\nconsole.log(await r.json());",
+        "python": "import requests\nr = requests.post('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent', params={'key':'{{API_KEY}}'}, json={'contents':[{'parts':[{'text':'hi'}]}]})\nprint(r.json())"
+      },
+      "example_response": "{\"candidates\":[{\"content\":{\"parts\":[{\"text\":\"Hello there!\"}]}}]}",
+      "tags": [
+        "ai",
+        "llm",
+        "google",
+        "multimodal"
+      ],
+      "popularity_score": 95,
+      "alternatives": [
+        "cohere",
+        "groq",
+        "mistral"
+      ],
+      "gotchas": [
+        {
+          "severity": "warning",
+          "text": "Free-tier inputs may be used to improve Google's models — don't send sensitive data"
+        },
+        {
+          "severity": "warning",
+          "text": "Region restrictions — not available in EU on free tier as of 2025"
+        }
+      ],
+      "health_check": {
+        "url": "https://generativelanguage.googleapis.com/v1beta/models",
+        "method": "GET",
+        "expected_status": 403,
+        "requires_auth": true
+      },
+      "_meta": {
+        "verified": false,
+        "last_verified": null,
+        "health_status": "unknown",
+        "uptime_percentage": null,
+        "cors_verified": null,
+        "verified_by": null
+      }
+    },
+    {
+      "id": "mistral",
+      "name": "Mistral AI",
+      "description": "European LLM provider with open-weight models and a free experimental tier on hosted endpoints.",
+      "category": "ai-ml",
+      "subcategory": "llm",
+      "website": "https://mistral.ai",
+      "docs_url": "https://docs.mistral.ai",
+      "signup_url": "https://console.mistral.ai",
+      "base_url": "https://api.mistral.ai/v1",
+      "example_endpoint": "/chat/completions",
+      "auth_type": "api_key",
+      "pricing_tier": "free_with_signup",
+      "rate_limits": {
+        "per_minute": null,
+        "per_day": null,
+        "per_month": null,
+        "notes": "Experimental free tier on mistral-small and Pixtral-12B; per-account quotas"
+      },
+      "requires_credit_card": false,
+      "https": true,
+      "cors": true,
+      "code_examples": {
+        "curl": "curl https://api.mistral.ai/v1/chat/completions -H 'Authorization: Bearer {{API_KEY}}' -H 'Content-Type: application/json' -d '{\"model\":\"mistral-small-latest\",\"messages\":[{\"role\":\"user\",\"content\":\"hi\"}]}'",
+        "javascript": "const r = await fetch('https://api.mistral.ai/v1/chat/completions', {\n  method:'POST',\n  headers:{ Authorization:'Bearer {{API_KEY}}', 'Content-Type':'application/json' },\n  body: JSON.stringify({ model:'mistral-small-latest', messages:[{role:'user',content:'hi'}] })\n});\nconsole.log(await r.json());",
+        "python": "import requests\nr = requests.post('https://api.mistral.ai/v1/chat/completions', headers={'Authorization':'Bearer {{API_KEY}}'}, json={'model':'mistral-small-latest','messages':[{'role':'user','content':'hi'}]})\nprint(r.json())"
+      },
+      "example_response": "{\"choices\":[{\"message\":{\"role\":\"assistant\",\"content\":\"Hello!\"}}]}",
+      "tags": [
+        "ai",
+        "llm",
+        "europe",
+        "openai-compatible"
+      ],
+      "popularity_score": 82,
+      "alternatives": [
+        "cohere",
+        "groq",
+        "huggingface-inference"
+      ],
+      "gotchas": [
+        {
+          "severity": "info",
+          "text": "Free tier has a default rate limit that's strict for production use"
+        },
+        {
+          "severity": "info",
+          "text": "Some models require explicit opt-in in the console before they appear in API"
+        }
+      ],
+      "health_check": {
+        "url": "https://api.mistral.ai/v1/models",
+        "method": "GET",
+        "expected_status": 401,
+        "requires_auth": true
+      },
+      "_meta": {
+        "verified": false,
+        "last_verified": null,
+        "health_status": "unknown",
+        "uptime_percentage": null,
+        "cors_verified": null,
+        "verified_by": null
+      }
+    }
+  ]
+}

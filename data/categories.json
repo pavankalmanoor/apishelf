@@ -1,0 +1,52 @@
+{
+  "categories": [
+    {
+      "id": "weather",
+      "name": "Weather & Climate",
+      "icon": "cloud-sun",
+      "description": "Forecasts, current conditions, historical climate data, and severe weather alerts."
+    },
+    {
+      "id": "geo",
+      "name": "Geolocation & Maps",
+      "icon": "map-pin",
+      "description": "Geocoding, IP lookup, country/region metadata, and mapping primitives."
+    },
+    {
+      "id": "finance",
+      "name": "Finance & Crypto",
+      "icon": "trending-up",
+      "description": "Exchange rates, cryptocurrency prices, stock market data, and economic indicators."
+    },
+    {
+      "id": "public-data",
+      "name": "Public & Government Data",
+      "icon": "library",
+      "description": "Open datasets from government agencies and public-interest projects."
+    },
+    {
+      "id": "dev-tools",
+      "name": "Developer Tools",
+      "icon": "wrench",
+      "description": "Utilities for IP, DNS, URL shortening, request inspection, and more."
+    },
+    {
+      "id": "mock-data",
+      "name": "Random & Mock Data",
+      "icon": "shuffle",
+      "description": "Fake users, placeholder content, and synthetic data for prototypes and tests."
+    },
+    {
+      "id": "entertainment",
+      "name": "Entertainment",
+      "icon": "smile",
+      "description": "Jokes, quotes, trivia, fictional universes, and pop culture data."
+    },
+    {
+      "id": "ai-ml",
+      "name": "AI & Machine Learning",
+      "icon": "sparkles",
+      "description": "Inference endpoints, language models, image generation, and ML utilities."
+    }
+  ]
+}

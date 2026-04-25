@@ -1,0 +1,47 @@
+{
+  "_note": "APIs that were considered or previously included, then removed. Don't re-add without a clear explanation of what changed.",
+  "graveyard": [
+    {
+      "name": "Bored API",
+      "former_url": "https://www.boredapi.com",
+      "removed_on": "2026-04-25",
+      "reason": "DNS no longer resolves — service appears shut down some time after 2024."
+    },
+    {
+      "name": "Quotable",
+      "former_url": "https://api.quotable.io",
+      "removed_on": "2026-04-25",
+      "reason": "DNS no longer resolves — service offline. Replaced in entertainment by Advice Slip + ZenQuotes."
+    },
+    {
+      "name": "CoinCap",
+      "former_url": "https://api.coincap.io",
+      "removed_on": "2026-04-25",
+      "reason": "DNS no longer resolves at v2; CoinPaprika fills the same niche."
+    },
+    {
+      "name": "Public APIs API",
+      "former_url": "https://api.publicapis.org",
+      "removed_on": "2026-04-25",
+      "reason": "Defunct — DNS no longer resolves. The whole point of APIShelf is to replace this."
+    },
+    {
+      "name": "World Bank Open Data API",
+      "former_url": "https://api.worldbank.org",
+      "removed_on": "2026-04-25",
+      "reason": "Cloudflare 524 timeouts during verification — too unreliable to recommend right now. Re-evaluate in a future health-check pass."
+    },
+    {
+      "name": "Binance public ticker",
+      "former_url": "https://api.binance.com/api/v3/ticker/price",
+      "removed_on": "2026-04-25",
+      "reason": "Returns HTTP 451 from US IPs — geo-restricted, can't be recommended as a US-friendly free API."
+    },
+    {
+      "name": "LibreTranslate (libretranslate.com mirror)",
+      "former_url": "https://libretranslate.com/translate",
+      "removed_on": "2026-04-25",
+      "reason": "Public mirror now requires an API key. Self-hosting still works but isn't a hosted free option."
+    }
+  ]
+}

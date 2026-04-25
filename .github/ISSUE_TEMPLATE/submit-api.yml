@@ -1,0 +1,81 @@
+name: Submit an API
+description: Propose a new API to be added to APIShelf
+title: "[Submit API] <name>"
+labels: ["submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for submitting! Please confirm the API has a **genuinely free tier** (not just a free trial)
+        and is **not in `data/graveyard.json`**. The faster path is the [submission form on the site](https://pavankalmanoor.github.io/apishelf/submit.html), which generates a properly-shaped JSON for you.
+
+  - type: input
+    id: name
+    attributes:
+      label: API name
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: 1–2 sentences. Who is it for? What does it do?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - Weather & Climate
+        - Geolocation & Maps
+        - Finance & Crypto
+        - Public & Government Data
+        - Developer Tools
+        - Random & Mock Data
+        - Entertainment
+        - AI & Machine Learning
+    validations:
+      required: true
+
+  - type: input
+    id: docs
+    attributes:
+      label: Docs URL
+    validations:
+      required: true
+
+  - type: dropdown
+    id: auth
+    attributes:
+      label: Auth type
+      options: ["none", "api_key", "oauth", "other"]
+    validations:
+      required: true
+
+  - type: textarea
+    id: curl
+    attributes:
+      label: Working curl command
+      description: Paste a curl that returns a successful response. (For docs-only submissions, write "untested - signup required".)
+      render: bash
+    validations:
+      required: true
+
+  - type: textarea
+    id: gotchas
+    attributes:
+      label: Gotchas
+      description: List anything annoying or surprising. CC requirements, undocumented limits, deprecated endpoints, response quirks.
+
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Pre-flight
+      options:
+        - label: I confirmed this API has a genuinely free tier (not a trial)
+          required: true
+        - label: I checked `data/graveyard.json` to confirm it isn't a removed API
+          required: true

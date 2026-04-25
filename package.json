@@ -1,0 +1,27 @@
+{
+  "name": "apishelf",
+  "version": "0.1.0",
+  "description": "Curated, verified directory of genuinely free APIs for developers.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "validate": "node scripts/validate-schema.js",
+    "generate-readme": "node scripts/generate-readme.js",
+    "health-check": "node scripts/health-check.js",
+    "build": "npm run validate && npm run generate-readme",
+    "serve": "python3 -m http.server 8080",
+    "test": "npm run validate"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pavankalmanoor/apishelf"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

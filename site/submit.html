@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>APIShelf — Submit an API</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>" />
+  <style>
+    form.submit-form { display: grid; gap: 1rem; max-width: 720px; margin-top: 1.5rem; }
+    .field { display: grid; gap: .25rem; }
+    .field label { font-weight: 500; color: var(--fg); }
+    .field input, .field textarea, .field select {
+      background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--radius-sm);
+      padding: .5rem .65rem; color: var(--fg); width: 100%; font-family: inherit;
+    }
+    .field textarea { font-family: var(--mono); font-size: .85rem; min-height: 4rem; }
+    .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .field-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .field-row label { display: inline-flex; gap: .35rem; align-items: center; }
+    .actions { display: flex; gap: .75rem; }
+    .actions button { background: var(--accent); color: var(--accent-fg); border: none; padding: .55rem 1rem; border-radius: var(--radius-sm); font-weight: 600; }
+    .actions button.secondary { background: var(--bg-elev); color: var(--fg); border: 1px solid var(--border); }
+    .preview { background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1rem; margin-top: 1rem; font-family: var(--mono); font-size: .82rem; white-space: pre; overflow-x: auto; }
+    .check-list { background: var(--info-bg); border-radius: var(--radius-sm); padding: 1rem 1.25rem; }
+    .check-list h3 { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <header class="site-header"><div class="row">
+    <a href="./" class="brand"><span aria-hidden="true">📚</span><strong>APIShelf</strong></a>
+    <nav class="primary-nav"><a href="./">Directory</a><a href="./status.html">Status</a><a href="./compare.html">Compare</a><a href="./submit.html" aria-current="page">Submit</a></nav>
+  </div></header>
+
+  <main class="row" style="padding-block: 2rem;">
+    <h1>Submit an API</h1>
+    <p style="color: var(--fg-muted);">Fill in this form to submit a new API. The form generates a properly-formatted GitHub issue (you'll review and submit it).</p>
+
+    <div class="check-list">
+      <h3>Before you submit</h3>
+      <ul>
+        <li>Confirm the API has a <strong>genuinely free tier</strong> (not just a free trial).</li>
+        <li>Make sure it's not in our <a href="https://github.com/pavankalmanoor/apishelf/blob/main/data/graveyard.json">graveyard.json</a> (already-removed APIs).</li>
+        <li>Honest gotchas matter — flag CC requirements, undocumented limits, deprecated endpoints.</li>
+      </ul>
+    </div>
+
+    <form class="submit-form" id="submit-form">
+      <div class="field"><label for="f-name">Name</label><input id="f-name" required placeholder="e.g. SuperWeather" /></div>
+      <div class="field"><label for="f-desc">Description (1–2 sentences)</label><textarea id="f-desc" required placeholder="What does this API do? Who is it for?"></textarea></div>
+      <div class="field-grid">
+        <div class="field"><label for="f-cat">Category</label>
+          <select id="f-cat" required></select>
+        </div>
+        <div class="field"><label for="f-website">Website</label><input id="f-website" type="url" required placeholder="https://example.com" /></div>
+      </div>
+      <div class="field-grid">
+        <div class="field"><label for="f-docs">Docs URL</label><input id="f-docs" type="url" required placeholder="https://example.com/docs" /></div>
+        <div class="field"><label for="f-base">Base URL</label><input id="f-base" type="url" required placeholder="https://api.example.com/v1" /></div>
+      </div>
+      <div class="field-grid">
+        <div class="field"><label for="f-auth">Auth</label>
+          <select id="f-auth"><option>none</option><option>api_key</option><option>oauth</option><option>other</option></select>
+        </div>
+        <div class="field"><label for="f-tier">Pricing tier</label>
+          <select id="f-tier"><option>truly_free</option><option>free_with_signup</option><option>free_tier_limited</option><option>freemium</option></select>
+        </div>
+      </div>
+      <div class="field-row">
+        <label><input type="checkbox" id="f-https" checked /> HTTPS</label>
+        <label><input type="checkbox" id="f-cors" /> Supports CORS</label>
+        <label><input type="checkbox" id="f-cc" /> Requires credit card</label>
+      </div>
+      <div class="field"><label for="f-curl">curl example</label><textarea id="f-curl" placeholder="curl https://api.example.com/v1/something"></textarea></div>
+      <div class="field"><label for="f-gotchas">Gotchas (one per line)</label><textarea id="f-gotchas" placeholder="Free tier requires CC removal step&#10;Daily quota resets at UTC midnight"></textarea></div>
+
+      <div class="actions">
+        <button type="submit">Generate GitHub issue →</button>
+        <button type="button" class="secondary" id="preview-btn">Preview JSON</button>
+      </div>
+    </form>
+
+    <div class="preview" id="preview" hidden></div>
+  </main>
+
+  <script type="module">
+    document.documentElement.dataset.theme = localStorage.getItem('apishelf:theme') || 'dark';
+    const cats = await fetch('../data/categories.json').then(r => r.json());
+    const select = document.getElementById('f-cat');
+    cats.categories.forEach(c => {
+      const o = document.createElement('option'); o.value = c.id; o.textContent = c.name; select.appendChild(o);
+    });
+
+    function buildEntry() {
+      const name = document.getElementById('f-name').value.trim();
+      const id = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+      return {
+        id,
+        name,
+        description: document.getElementById('f-desc').value.trim(),
+        category: document.getElementById('f-cat').value,
+        website: document.getElementById('f-website').value.trim(),
+        docs_url: document.getElementById('f-docs').value.trim(),
+        base_url: document.getElementById('f-base').value.trim(),
+        auth_type: document.getElementById('f-auth').value,
+        pricing_tier: document.getElementById('f-tier').value,
+        requires_credit_card: document.getElementById('f-cc').checked,
+        https: document.getElementById('f-https').checked,
+        cors: document.getElementById('f-cors').checked,
+        code_examples: { curl: document.getElementById('f-curl').value.trim() || null, javascript: null, python: null },
+        gotchas: document.getElementById('f-gotchas').value.split('\n').map(s => s.trim()).filter(Boolean),
+        tags: [document.getElementById('f-cat').value],
+        _meta: { verified: false, last_verified: null, health_status: 'unknown', uptime_percentage: null, cors_verified: null, verified_by: null }
+      };
+    }
+
+    document.getElementById('preview-btn').addEventListener('click', () => {
+      const out = document.getElementById('preview');
+      out.hidden = false;
+      out.textContent = JSON.stringify(buildEntry(), null, 2);
+    });
+
+    document.getElementById('submit-form').addEventListener('submit', e => {
+      e.preventDefault();
+      const entry = buildEntry();
+      const body = encodeURIComponent(`Proposed entry for \`data/apis.json\`:\n\n\`\`\`json\n${JSON.stringify(entry, null, 2)}\n\`\`\`\n\n**Verification:** I confirm I tested the example endpoint (or marked it as docs-only).`);
+      const title = encodeURIComponent(`[Submit API] ${entry.name}`);
+      window.open(`https://github.com/pavankalmanoor/apishelf/issues/new?title=${title}&body=${body}&labels=submission`, '_blank');
+    });
+  </script>
+</body>
+</html>

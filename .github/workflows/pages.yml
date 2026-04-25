@@ -1,0 +1,45 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Stage site with data and history
+        run: |
+          mkdir -p _site
+          cp -r site/* _site/
+          # site/app.js fetches ../data/apis.json — recreate that layout under _site by symlinks
+          mkdir -p _site/data _site/history
+          cp data/*.json _site/data/
+          cp -r history/*.json _site/history/ 2>/dev/null || true
+          # rewrite ../data/ and ../history/ paths to ./data/ and ./history/ for the deployed site
+          find _site -name '*.html' -o -name '*.js' | xargs sed -i 's|\.\./data/|./data/|g; s|\.\./history/|./history/|g'
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
