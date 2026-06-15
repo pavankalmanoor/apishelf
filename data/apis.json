@@ -59,7 +59,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": true,
@@ -122,7 +122,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": true,
@@ -193,7 +193,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": true,
@@ -260,7 +260,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": null,
@@ -460,7 +460,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": null,
@@ -523,7 +523,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": true,
@@ -584,7 +584,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": true,
@@ -830,7 +830,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": true,
@@ -889,7 +889,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": true,
@@ -952,7 +952,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": true,
@@ -1014,7 +1014,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": true,
@@ -1192,7 +1192,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": true,
@@ -1249,10 +1249,10 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "down",
-        "uptime_percentage": 57.1,
-        "cors_verified": false,
+        "uptime_percentage": 50,
+        "cors_verified": true,
         "verified_by": "manual-curl"
       }
     },
@@ -1310,7 +1310,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": true,
@@ -1371,9 +1371,9 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "down",
-        "uptime_percentage": 85.7,
+        "uptime_percentage": 75,
         "cors_verified": true,
         "verified_by": "manual-curl"
       }
@@ -1428,7 +1428,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": true,
@@ -1489,7 +1489,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": true,
@@ -1545,7 +1545,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": true,
@@ -1598,7 +1598,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": true,
@@ -1654,7 +1654,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": true,
@@ -1714,7 +1714,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": true,
@@ -1774,10 +1774,10 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
-        "health_status": "up",
-        "uptime_percentage": 85.7,
-        "cors_verified": true,
+        "last_verified": "2026-06-15",
+        "health_status": "down",
+        "uptime_percentage": 75,
+        "cors_verified": false,
         "verified_by": "manual-curl"
       }
     },
@@ -1830,7 +1830,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": true,
@@ -1945,7 +1945,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": true,
@@ -2004,7 +2004,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": true,
@@ -2065,7 +2065,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": true,
@@ -2127,7 +2127,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": true,
@@ -2189,7 +2189,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": true,
@@ -2247,7 +2247,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": true,
@@ -2313,7 +2313,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": true,
@@ -2372,7 +2372,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": true,
@@ -2433,7 +2433,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": true,
@@ -2494,7 +2494,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": true,
@@ -2551,7 +2551,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": true,
@@ -2608,7 +2608,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": true,
@@ -2666,7 +2666,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": true,
@@ -2729,7 +2729,7 @@
       },
       "_meta": {
         "verified": true,
-        "last_verified": "2026-06-08",
+        "last_verified": "2026-06-15",
         "health_status": "up",
         "uptime_percentage": 100,
         "cors_verified": true,
