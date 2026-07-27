@@ -3912,6 +3912,307 @@
           "corsOk": true
         }
       ]
+    },
+    {
+      "date": "2026-07-27",
+      "results": [
+        {
+          "id": "open-meteo",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 451,
+          "corsOk": true
+        },
+        {
+          "id": "wttr-in",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 1334,
+          "corsOk": true
+        },
+        {
+          "id": "nws",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 167,
+          "corsOk": true
+        },
+        {
+          "id": "7timer",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 824,
+          "corsOk": null
+        },
+        {
+          "id": "nominatim",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 559,
+          "corsOk": null
+        },
+        {
+          "id": "ip-api",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 124,
+          "corsOk": true
+        },
+        {
+          "id": "rest-countries",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 181,
+          "corsOk": null
+        },
+        {
+          "id": "coingecko",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 112,
+          "corsOk": true
+        },
+        {
+          "id": "coinpaprika",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 74,
+          "corsOk": true
+        },
+        {
+          "id": "exchangerate-api-open",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 138,
+          "corsOk": true
+        },
+        {
+          "id": "frankfurter",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 187,
+          "corsOk": true
+        },
+        {
+          "id": "usgs-earthquake",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 427,
+          "corsOk": true
+        },
+        {
+          "id": "nasa-apod",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 456,
+          "corsOk": false
+        },
+        {
+          "id": "fbi-wanted",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 229,
+          "corsOk": true
+        },
+        {
+          "id": "open-notify",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 2499,
+          "corsOk": false
+        },
+        {
+          "id": "uk-police",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 556,
+          "corsOk": true
+        },
+        {
+          "id": "wikipedia-rest",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 319,
+          "corsOk": true
+        },
+        {
+          "id": "disease-sh",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 156,
+          "corsOk": true
+        },
+        {
+          "id": "ipify",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 44,
+          "corsOk": true
+        },
+        {
+          "id": "dnsjson",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 205,
+          "corsOk": true
+        },
+        {
+          "id": "is-gd",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 177,
+          "corsOk": true
+        },
+        {
+          "id": "httpbin",
+          "status": 503,
+          "ok": false,
+          "errorMsg": null,
+          "elapsed": 167,
+          "corsOk": null
+        },
+        {
+          "id": "uuid-tools",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 262,
+          "corsOk": true
+        },
+        {
+          "id": "jsonplaceholder",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 173,
+          "corsOk": true
+        },
+        {
+          "id": "dummyjson",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 60,
+          "corsOk": true
+        },
+        {
+          "id": "randomuser",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 35,
+          "corsOk": true
+        },
+        {
+          "id": "picsum",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 355,
+          "corsOk": true
+        },
+        {
+          "id": "genderize",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 292,
+          "corsOk": true
+        },
+        {
+          "id": "agify",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 311,
+          "corsOk": true
+        },
+        {
+          "id": "icanhazdadjoke",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 356,
+          "corsOk": true
+        },
+        {
+          "id": "official-joke-api",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 398,
+          "corsOk": true
+        },
+        {
+          "id": "open-trivia",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 505,
+          "corsOk": true
+        },
+        {
+          "id": "pokeapi",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 26,
+          "corsOk": true
+        },
+        {
+          "id": "ghibli",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 137,
+          "corsOk": true
+        },
+        {
+          "id": "rick-and-morty",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 47,
+          "corsOk": true
+        },
+        {
+          "id": "advice-slip",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 11365,
+          "corsOk": true
+        },
+        {
+          "id": "pollinations",
+          "status": 200,
+          "ok": true,
+          "errorMsg": null,
+          "elapsed": 392,
+          "corsOk": true
+        }
+      ]
     }
   ]
 }
